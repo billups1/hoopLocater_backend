@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public enum Light {
 
-    NO_INFO("-(정보없음)", 0),
+    NO_INFO("(정보없음)", 0),
     PM9("오후 9시까지", 1),
     PM10("오후 10시까지", 2),
     PM11("오후 11시까지", 3),
