@@ -1,8 +1,6 @@
 package com.my.HoopLocater.application.hoop.command;
 
-import com.my.HoopLocater.domain.hoop.FloorType;
-import com.my.HoopLocater.domain.hoop.Hoop;
-import com.my.HoopLocater.domain.hoop.Light;
+import com.my.HoopLocater.domain.hoop.*;
 import lombok.Getter;
 
 @Getter
@@ -14,19 +12,25 @@ public class HoopCreateCommand {
     private Integer hoopCount;
     private String floorType;
     private String light;
+    private String freeState;
+    private String standardState;
 
     public HoopCreateCommand(String name,
                              Double latitude,
                              Double longitude,
                              Integer hoopCount,
                              String floorType,
-                             String light) {
+                             String light,
+                             String freeState,
+                             String standardState) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.hoopCount = hoopCount;
         this.floorType = floorType;
         this.light = light;
+        this.freeState = freeState;
+        this.standardState = standardState;
     }
 
     public static HoopCreateCommand of(String name,
@@ -34,8 +38,10 @@ public class HoopCreateCommand {
                                        Double longitude,
                                        Integer hoopCount,
                                        String floorType,
-                                       String light) {
-        return new HoopCreateCommand(name, latitude, longitude, hoopCount, floorType, light);
+                                       String light,
+                                       String freeState,
+                                       String standardState) {
+        return new HoopCreateCommand(name, latitude, longitude, hoopCount, floorType, light, freeState, standardState);
     }
 
     public Hoop create() {
@@ -46,6 +52,8 @@ public class HoopCreateCommand {
                 .hoopCount(hoopCount)
                 .floorType(FloorType.valueOf(floorType))
                 .light(Light.valueOf(light))
+                .freeState(FreeState.valueOf(freeState))
+                .standardState(StandardState.valueOf(standardState))
                 .build();
     }
 }

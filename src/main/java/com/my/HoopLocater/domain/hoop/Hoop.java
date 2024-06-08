@@ -36,11 +36,21 @@ public class Hoop extends BaseTimeEntity { // 농구장
     @Enumerated(EnumType.STRING)
     private Light light; // 조명
 
-    public void updateContent(String name, Integer hoopCount, FloorType floorType, Light light) {
+    @Column(name = "freeState")
+    @Enumerated(EnumType.STRING)
+    private FreeState freeState; // 유/무료
+
+    @Column(name = "standardState")
+    @Enumerated(EnumType.STRING)
+    private StandardState standardState; // 규격(정규코트 여부)
+
+    public void updateContent(String name, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState) {
         this.name = name;
         this.hoopCount = hoopCount;
         this.floorType = floorType;
         this.light = light;
+        this.freeState = freeState;
+        this.standardState = standardState;
     }
 
     public Hoop(Long id) {

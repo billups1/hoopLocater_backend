@@ -1,8 +1,6 @@
 package com.my.HoopLocater.domain.hoop.dto;
 
-import com.my.HoopLocater.domain.hoop.FloorType;
-import com.my.HoopLocater.domain.hoop.Hoop;
-import com.my.HoopLocater.domain.hoop.Light;
+import com.my.HoopLocater.domain.hoop.*;
 import com.querydsl.core.annotations.QueryProjection;
 
 public record HoopDto(
@@ -12,7 +10,9 @@ public record HoopDto(
         Double longitude,
         Integer hoopCount,
         FloorType floorType,
-        Light light
+        Light light,
+        FreeState freeState,
+        StandardState standardState
 
 ) {
     public static HoopDto from(Hoop hoop) {
@@ -23,7 +23,9 @@ public record HoopDto(
                 hoop.getLongitude(),
                 hoop.getHoopCount(),
                 hoop.getFloorType(),
-                hoop.getLight()
+                hoop.getLight(),
+                hoop.getFreeState(),
+                hoop.getStandardState()
         );
     }
 
@@ -36,7 +38,9 @@ public record HoopDto(
                 hoop.getLongitude(),
                 hoop.getHoopCount(),
                 hoop.getFloorType(),
-                hoop.getLight()
+                hoop.getLight(),
+                hoop.getFreeState(),
+                hoop.getStandardState()
         );
     }
 }
