@@ -2,7 +2,7 @@ name: HoopLocator
 on:
   push:
     branches:
-      - prod # prod 브런치에 푸시 되었을 때 아래의 jobs 실행
+      - master
 
 jobs:
   build: # 명칭은 마음대로 적어도 됨
