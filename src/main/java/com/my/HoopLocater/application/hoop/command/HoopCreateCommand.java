@@ -14,6 +14,7 @@ public class HoopCreateCommand {
     private String light;
     private String freeState;
     private String standardState;
+    private String loginId;
 
     public HoopCreateCommand(String name,
                              Double latitude,
@@ -22,7 +23,8 @@ public class HoopCreateCommand {
                              String floorType,
                              String light,
                              String freeState,
-                             String standardState) {
+                             String standardState,
+                             String loginId) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -31,6 +33,7 @@ public class HoopCreateCommand {
         this.light = light;
         this.freeState = freeState;
         this.standardState = standardState;
+        this.loginId = loginId;
     }
 
     public static HoopCreateCommand of(String name,
@@ -40,8 +43,9 @@ public class HoopCreateCommand {
                                        String floorType,
                                        String light,
                                        String freeState,
-                                       String standardState) {
-        return new HoopCreateCommand(name, latitude, longitude, hoopCount, floorType, light, freeState, standardState);
+                                       String standardState,
+                                       String loginId) {
+        return new HoopCreateCommand(name, latitude, longitude, hoopCount, floorType, light, freeState, standardState, loginId);
     }
 
     public Hoop create() {
@@ -54,6 +58,7 @@ public class HoopCreateCommand {
                 .light(Light.valueOf(light))
                 .freeState(FreeState.valueOf(freeState))
                 .standardState(StandardState.valueOf(standardState))
+                .lastChangeUser(loginId)
                 .build();
     }
 }

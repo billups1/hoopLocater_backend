@@ -24,6 +24,9 @@ public class Report extends BaseTimeEntity {
     @Column(name = "reason")
     private String reason;
 
+    @Column(name = "loginId")
+    private String loginId;
+
     public Report(Long id) {
         this.id = id;
     }

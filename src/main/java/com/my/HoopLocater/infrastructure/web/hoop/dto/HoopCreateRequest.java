@@ -27,7 +27,10 @@ public record HoopCreateRequest(
         String freeState,
         @Schema(description = "규격(정규코트 여부)", example = "STANDARD")
         @NotEmpty
-        String standardState
+        String standardState,
+        @Schema(description = "로그인 아이디", example = "aaaaaaaa")
+        @NotEmpty
+        String loginId
 
 ) {
     public HoopCreateCommand toCommand() {
@@ -39,7 +42,8 @@ public record HoopCreateRequest(
                 floorType,
                 light,
                 freeState,
-                standardState
+                standardState,
+                loginId
         );
     }
 

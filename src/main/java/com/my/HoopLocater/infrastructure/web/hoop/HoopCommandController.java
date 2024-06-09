@@ -39,7 +39,6 @@ public class HoopCommandController {
     )
     @PutMapping("/update")
     public HoopDto update(@RequestBody @Valid HoopUpdateRequest request) {
-        System.out.println("request = " + request);
         return commandHandler.handler(request.toCommand());
     }
 

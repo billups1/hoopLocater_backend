@@ -11,13 +11,17 @@ public record ReportCreateRequest(
         Long hoopId,
         @Schema(description = "신고사유", example = "NO_HOOP")
         @NotEmpty
-        String reason
+        String reason,
+        @Schema(description = "로그인 아이디", example = "aaaaaaaa")
+        @NotEmpty
+        String loginId
 
 ) {
     public ReportCreateCommand toCommand() {
         return ReportCreateCommand.of(
                 hoopId,
-                reason
+                reason,
+                loginId
         );
     }
 

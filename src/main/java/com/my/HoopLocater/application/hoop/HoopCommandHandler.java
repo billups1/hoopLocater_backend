@@ -28,7 +28,8 @@ public class HoopCommandHandler {
         });
 
         hoop.updateContent(command.getName(), command.getHoopCount(), FloorType.valueOf(command.getFloorType()), Light.valueOf(command.getLight()),
-                FreeState.valueOf(command.getFreeState()), StandardState.valueOf(command.getStandardState()));
+                FreeState.valueOf(command.getFreeState()), StandardState.valueOf(command.getStandardState()),
+                command.getLoginId());
 
         return HoopDto.from(hoop);
     }

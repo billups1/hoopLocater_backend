@@ -23,7 +23,10 @@ public record HoopUpdateRequest(
         String freeState,
         @Schema(description = "규격(정규코트 여부)", example = "STANDARD")
         @NotEmpty
-        String standardState
+        String standardState,
+        @Schema(description = "로그인 아이디", example = "aaaaaaaa")
+        @NotEmpty
+        String loginId
 
 ) {
     public HoopUpdateCommand toCommand() {
@@ -34,7 +37,8 @@ public record HoopUpdateRequest(
                 floorType,
                 light,
                 freeState,
-                standardState
+                standardState,
+                loginId
         );
     }
 
