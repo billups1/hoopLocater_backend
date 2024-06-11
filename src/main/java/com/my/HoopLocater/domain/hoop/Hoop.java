@@ -19,10 +19,10 @@ public class Hoop extends BaseTimeEntity { // 농구장
     @Column(name = "name")
     private String name;
 
-    @Column(name = "latitude")
+    @Column(name = "latitude", nullable = false)
     private Double latitude; // 위도
 
-    @Column(name = "longitude")
+    @Column(name = "longitude", nullable = false)
     private Double longitude; // 경도
 
     @Column(name = "hoopCount")
