@@ -1,7 +1,10 @@
-package com.my.HoopLocater.domain.hoop;
+package com.my.HoopLocater.domain.hoopBackup;
 
-import com.my.HoopLocater.application.hoop.HoopEntityListener;
 import com.my.HoopLocater.common.BaseTimeEntity;
+import com.my.HoopLocater.domain.hoop.FloorType;
+import com.my.HoopLocater.domain.hoop.FreeState;
+import com.my.HoopLocater.domain.hoop.Light;
+import com.my.HoopLocater.domain.hoop.StandardState;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,9 +12,8 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @AllArgsConstructor
-@EntityListeners(value = HoopEntityListener.class)
-@Entity(name = "hoops")
-public class Hoop extends BaseTimeEntity { // 농구장
+@Entity(name = "hoop_backups")
+public class HoopBackup extends BaseTimeEntity { // 농구장 백업
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,6 +51,10 @@ public class Hoop extends BaseTimeEntity { // 농구장
     @Column(name = "lastChangeUser")
     private String lastChangeUser;
 
+    @Column(name = "updateMethod")
+    @Enumerated(EnumType.STRING)
+    private UpdateMethod updateMethod; // 업데이트 방법
+
     public void updateContent(String name, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, String lastChangeUser) {
         this.name = name;
         this.hoopCount = hoopCount;
@@ -59,7 +65,7 @@ public class Hoop extends BaseTimeEntity { // 농구장
         this.lastChangeUser = lastChangeUser;
     }
 
-    public Hoop(Long id) {
+    public HoopBackup(Long id) {
         this.id = id;
     }
 
