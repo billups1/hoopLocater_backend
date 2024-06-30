@@ -26,8 +26,8 @@ public class ReportCommandController {
                     """
     )
     @PostMapping("/create")
-    public int create(@RequestBody @Valid ReportCreateRequest request) {
-        return commandHandler.handler(request.toCommand());
+    public void create(@RequestBody @Valid ReportCreateRequest request) {
+        commandHandler.handler(request.toCommand());
     }
 
 }
