@@ -49,6 +49,9 @@ public class Hoop extends BaseTimeEntity { // 농구장
     @Column(name = "lastChangeUser")
     private String lastChangeUser;
 
+    @Column(name = "comment_count", nullable = false)
+    private int commentCount;
+
     public void updateContent(String name, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, String lastChangeUser) {
         this.name = name;
         this.hoopCount = hoopCount;
@@ -61,6 +64,14 @@ public class Hoop extends BaseTimeEntity { // 농구장
 
     public Hoop(Long id) {
         this.id = id;
+    }
+
+    public void addCommentCount() {
+        this.commentCount += 1;
+    }
+
+    public void minusCommentCount() {
+        this.commentCount -= 1;
     }
 
 }

@@ -4,7 +4,6 @@ import com.my.HoopLocater.application.hoop.HoopCommandHandler;
 import com.my.HoopLocater.domain.hoop.dto.HoopDto;
 import com.my.HoopLocater.infrastructure.web.hoop.dto.HoopCreateRequest;
 import com.my.HoopLocater.infrastructure.web.hoop.dto.HoopUpdateRequest;
-import com.my.HoopLocater.infrastructure.web.report.dto.ReportCreateRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
