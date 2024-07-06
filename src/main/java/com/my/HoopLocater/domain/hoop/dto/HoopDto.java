@@ -12,7 +12,8 @@ public record HoopDto(
         FloorType floorType,
         Light light,
         FreeState freeState,
-        StandardState standardState
+        StandardState standardState,
+        Integer commentCount
 
 ) {
     public static HoopDto from(Hoop hoop) {
@@ -25,7 +26,8 @@ public record HoopDto(
                 hoop.getFloorType(),
                 hoop.getLight(),
                 hoop.getFreeState(),
-                hoop.getStandardState()
+                hoop.getStandardState(),
+                hoop.getCommentCount()
         );
     }
 
@@ -40,7 +42,8 @@ public record HoopDto(
                 hoop.getFloorType(),
                 hoop.getLight(),
                 hoop.getFreeState(),
-                hoop.getStandardState()
+                hoop.getStandardState(),
+                hoop.getCommentCount()
         );
     }
 }

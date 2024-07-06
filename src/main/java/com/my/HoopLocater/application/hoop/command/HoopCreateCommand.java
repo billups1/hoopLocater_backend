@@ -59,6 +59,7 @@ public class HoopCreateCommand {
                 .freeState(FreeState.valueOf(freeState))
                 .standardState(StandardState.valueOf(standardState))
                 .lastChangeUser(loginId)
+                .hoopCount(0)
                 .build();
     }
 }

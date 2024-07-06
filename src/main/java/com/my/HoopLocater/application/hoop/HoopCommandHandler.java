@@ -2,7 +2,7 @@ package com.my.HoopLocater.application.hoop;
 
 import com.my.HoopLocater.application.hoop.command.HoopCreateCommand;
 import com.my.HoopLocater.application.hoop.command.HoopUpdateCommand;
-import com.my.HoopLocater.common.exception.CustomHoopException;
+import com.my.HoopLocater.common.exception.CustomBusinessException;
 import com.my.HoopLocater.domain.hoop.*;
 import com.my.HoopLocater.domain.hoop.dto.HoopDto;
 import com.my.HoopLocater.infrastructure.persistence.hoop.HoopJpaRepository;
@@ -23,8 +23,8 @@ public class HoopCommandHandler {
 
     @Transactional
     public HoopDto handler(HoopUpdateCommand command) {
-        Hoop hoop = hoopJpaRepository.findById(command.getId()).orElseThrow(() -> {
-            throw new CustomHoopException("id로 농구장 정보를 찾을 수 없습니다.");
+        var hoop = hoopJpaRepository.findById(command.getId()).orElseThrow(() -> {
+            throw new CustomBusinessException("id로 농구장 정보를 찾을 수 없습니다.");
         });
 
         hoop.updateContent(command.getName(), command.getHoopCount(), FloorType.valueOf(command.getFloorType()), Light.valueOf(command.getLight()),

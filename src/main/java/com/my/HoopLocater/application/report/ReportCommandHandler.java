@@ -13,9 +13,8 @@ public class ReportCommandHandler {
     final ReportJpaRepository reportJpaRepository;
 
     @Transactional
-    public int handler(ReportCreateCommand command) {
+    public void handler(ReportCreateCommand command) {
         reportJpaRepository.save(command.create());
-        return 1;
     }
 
 
