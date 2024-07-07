@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 public class HoopBackupCreateCommand {
 
+    private Long hoopId;
     private String name;
     private Double latitude;
     private Double longitude;
@@ -19,7 +20,8 @@ public class HoopBackupCreateCommand {
     private String lastChangeUser;
     private UpdateMethod updateMethod;
 
-    public HoopBackupCreateCommand(String name,
+    public HoopBackupCreateCommand(Long hoopId,
+                                   String name,
                                    Double latitude,
                                    Double longitude,
                                    Integer hoopCount,
@@ -29,6 +31,7 @@ public class HoopBackupCreateCommand {
                                    StandardState standardState,
                                    String lastChangeUser,
                                    UpdateMethod updateMethod) {
+        this.hoopId = hoopId;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -41,7 +44,8 @@ public class HoopBackupCreateCommand {
         this.updateMethod = updateMethod;
     }
 
-    public static HoopBackupCreateCommand of(String name,
+    public static HoopBackupCreateCommand of(Long hoopId,
+                                             String name,
                                              Double latitude,
                                              Double longitude,
                                              Integer hoopCount,
@@ -51,15 +55,16 @@ public class HoopBackupCreateCommand {
                                              StandardState standardState,
                                              String lastChangeUser,
                                              UpdateMethod updateMethod) {
-        return new HoopBackupCreateCommand(name, latitude, longitude, hoopCount, floorType, light, freeState, standardState, lastChangeUser, updateMethod);
+        return new HoopBackupCreateCommand(hoopId, name, latitude, longitude, hoopCount, floorType, light, freeState, standardState, lastChangeUser, updateMethod);
     }
 
     public static HoopBackupCreateCommand of(Hoop hoop, UpdateMethod updateMethod) {
-        return new HoopBackupCreateCommand(hoop.getName(), hoop.getLatitude(), hoop.getLongitude(), hoop.getHoopCount(), hoop.getFloorType(), hoop.getLight(), hoop.getFreeState(), hoop.getStandardState(), hoop.getLastChangeUser(), updateMethod);
+        return new HoopBackupCreateCommand(hoop.getId(), hoop.getName(), hoop.getLatitude(), hoop.getLongitude(), hoop.getHoopCount(), hoop.getFloorType(), hoop.getLight(), hoop.getFreeState(), hoop.getStandardState(), hoop.getLastChangeUser(), updateMethod);
     }
 
     public HoopBackup create() {
         return HoopBackup.builder()
+                .hoopId(hoopId)
                 .name(name)
                 .latitude(latitude)
                 .longitude(longitude)

@@ -20,6 +20,9 @@ public class HoopBackup extends BaseTimeEntity { // 농구장 백업
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "hoopId")
+    private Long hoopId;
+
     @Column(name = "name")
     private String name;
 
@@ -55,7 +58,8 @@ public class HoopBackup extends BaseTimeEntity { // 농구장 백업
     @Enumerated(EnumType.STRING)
     private UpdateMethod updateMethod; // 업데이트 방법
 
-    public void updateContent(String name, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, String lastChangeUser) {
+    public void updateContent(Long hoopId, String name, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, String lastChangeUser) {
+        this.hoopId = hoopId;
         this.name = name;
         this.hoopCount = hoopCount;
         this.floorType = floorType;
