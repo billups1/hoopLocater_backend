@@ -12,7 +12,7 @@ public enum FloorType {
     URETHANE("우레탄", 0),
     PARQUET("마루바닥", 1),
     ASPHALT("아스팔트", 2),
-    DIRT("모래", 3),
+    DIRT("흙/모래", 3),
     ETC("기타", 4);
 
 
