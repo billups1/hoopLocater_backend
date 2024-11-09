@@ -1,7 +1,6 @@
 package com.my.HoopLocater.infrastructure.web.hoop.dto;
 
 import com.my.HoopLocater.application.hoop.command.HoopUpdateCommand;
-import com.my.HoopLocater.domain.auth.dto.UserDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -24,10 +23,13 @@ public record HoopUpdateRequest(
         String freeState,
         @Schema(description = "규격(정규코트 여부)", example = "STANDARD")
         @NotEmpty
-        String standardState
+        String standardState,
+        @Schema(description = "로그인 아이디", example = "aaaaaaaa")
+        @NotEmpty
+        String loginId
 
 ) {
-    public HoopUpdateCommand toCommand(String anonymousId, UserDto userDto) {
+    public HoopUpdateCommand toCommand() {
         return HoopUpdateCommand.of(
                 id,
                 name,
@@ -36,8 +38,7 @@ public record HoopUpdateRequest(
                 light,
                 freeState,
                 standardState,
-                anonymousId,
-                userDto
+                loginId
         );
     }
 
