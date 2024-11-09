@@ -1,5 +1,6 @@
 package com.my.HoopLocater.application.hoop.command;
 
+import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.hoop.*;
 import lombok.Getter;
 
@@ -14,7 +15,8 @@ public class HoopCreateCommand {
     private String light;
     private String freeState;
     private String standardState;
-    private String loginId;
+    private String anonymousId;
+    private UserDto userDto;
 
     public HoopCreateCommand(String name,
                              Double latitude,
@@ -24,7 +26,8 @@ public class HoopCreateCommand {
                              String light,
                              String freeState,
                              String standardState,
-                             String loginId) {
+                             String anonymousId,
+                             UserDto userDto) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -33,7 +36,8 @@ public class HoopCreateCommand {
         this.light = light;
         this.freeState = freeState;
         this.standardState = standardState;
-        this.loginId = loginId;
+        this.anonymousId = anonymousId;
+        this.userDto = userDto;
     }
 
     public static HoopCreateCommand of(String name,
@@ -44,8 +48,9 @@ public class HoopCreateCommand {
                                        String light,
                                        String freeState,
                                        String standardState,
-                                       String loginId) {
-        return new HoopCreateCommand(name, latitude, longitude, hoopCount, floorType, light, freeState, standardState, loginId);
+                                       String anonymousId,
+                                       UserDto userDto) {
+        return new HoopCreateCommand(name, latitude, longitude, hoopCount, floorType, light, freeState, standardState, anonymousId, userDto);
     }
 
     public Hoop create() {
@@ -58,7 +63,7 @@ public class HoopCreateCommand {
                 .light(Light.valueOf(light))
                 .freeState(FreeState.valueOf(freeState))
                 .standardState(StandardState.valueOf(standardState))
-                .lastChangeUser(loginId)
+                .lastChangeUser(userDto == null ? anonymousId : userDto.nickName()) // UserDto가 없으면 익명 아이디로 저장
                 .hoopCount(0)
                 .build();
     }

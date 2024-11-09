@@ -13,7 +13,8 @@ public record HoopDto(
         Light light,
         FreeState freeState,
         StandardState standardState,
-        Integer commentCount
+        Integer commentCount,
+        String lastChangeUser
 
 ) {
     public static HoopDto from(Hoop hoop) {
@@ -27,7 +28,8 @@ public record HoopDto(
                 hoop.getLight(),
                 hoop.getFreeState(),
                 hoop.getStandardState(),
-                hoop.getCommentCount()
+                hoop.getCommentCount(),
+                hoop.getLastChangeUser()
         );
     }
 
@@ -43,7 +45,8 @@ public record HoopDto(
                 hoop.getLight(),
                 hoop.getFreeState(),
                 hoop.getStandardState(),
-                hoop.getCommentCount()
+                hoop.getCommentCount(),
+                hoop.getLastChangeUser()
         );
     }
 }
