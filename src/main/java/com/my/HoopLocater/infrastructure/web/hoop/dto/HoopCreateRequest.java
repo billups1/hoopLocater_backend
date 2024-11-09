@@ -1,7 +1,6 @@
 package com.my.HoopLocater.infrastructure.web.hoop.dto;
 
 import com.my.HoopLocater.application.hoop.command.HoopCreateCommand;
-import com.my.HoopLocater.domain.auth.dto.UserDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -28,10 +27,13 @@ public record HoopCreateRequest(
         String freeState,
         @Schema(description = "규격(정규코트 여부)", example = "STANDARD")
         @NotEmpty
-        String standardState
+        String standardState,
+        @Schema(description = "로그인 아이디", example = "aaaaaaaa")
+        @NotEmpty
+        String loginId
 
 ) {
-    public HoopCreateCommand toCommand(String anonymousId, UserDto userDto) {
+    public HoopCreateCommand toCommand() {
         return HoopCreateCommand.of(
                 name,
                 latitude,
@@ -41,8 +43,7 @@ public record HoopCreateRequest(
                 light,
                 freeState,
                 standardState,
-                anonymousId,
-                userDto
+                loginId
         );
     }
 

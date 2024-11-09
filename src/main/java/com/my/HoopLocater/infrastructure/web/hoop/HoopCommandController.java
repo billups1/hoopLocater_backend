@@ -1,8 +1,6 @@
 package com.my.HoopLocater.infrastructure.web.hoop;
 
 import com.my.HoopLocater.application.hoop.HoopCommandHandler;
-import com.my.HoopLocater.configuration.argumentResolver.AuthUserDto;
-import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.hoop.dto.HoopDto;
 import com.my.HoopLocater.infrastructure.web.hoop.dto.HoopCreateRequest;
 import com.my.HoopLocater.infrastructure.web.hoop.dto.HoopUpdateRequest;
@@ -26,8 +24,8 @@ public class HoopCommandController {
                     """
     )
     @PostMapping("/create")
-    public HoopDto create(@RequestBody @Valid HoopCreateRequest request, @RequestHeader("anonymousId") String anonymousId, @AuthUserDto UserDto userDto) {
-        return commandHandler.handler(request.toCommand(anonymousId, userDto));
+    public HoopDto create(@RequestBody @Valid HoopCreateRequest request) {
+        return commandHandler.handler(request.toCommand());
     }
 
     @Operation(
@@ -39,8 +37,8 @@ public class HoopCommandController {
                     """
     )
     @PutMapping("/update")
-    public HoopDto update(@RequestBody @Valid HoopUpdateRequest request, @RequestHeader("@RequestHeader") String anonymousId, @AuthUserDto UserDto userDto) {
-        return commandHandler.handler(request.toCommand(anonymousId, userDto));
+    public HoopDto update(@RequestBody @Valid HoopUpdateRequest request) {
+        return commandHandler.handler(request.toCommand());
     }
 
 }
