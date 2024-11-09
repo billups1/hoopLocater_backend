@@ -32,4 +32,4 @@ spring:
       password: 1234
 
 jwt:
-  secret-key: ${jwt.secret-key}
+  secret-key: ${jwt.secretkey}
