@@ -30,3 +30,6 @@ spring:
     user:
       name: test
       password: 1234
+
+jwt:
+  secret-key: ${jwt.secret-key}

@@ -33,7 +33,11 @@ public class CommentCommandHandler {
         });
         var hoop = comment.getHoop();
 
-        if (!comment.getWriter().equals(command.getWriter())) {
+        if (command.getUserDto() != null) {
+            if (!comment.getWriter().equals(command.getUserDto().nickName())) {
+                throw new CustomBusinessException("댓글 작성자가 아니므로 댓글을 삭제할 수 없습니다.");
+            }
+        } else {
             throw new CustomBusinessException("댓글 작성자가 아니므로 댓글을 삭제할 수 없습니다.");
         }
 

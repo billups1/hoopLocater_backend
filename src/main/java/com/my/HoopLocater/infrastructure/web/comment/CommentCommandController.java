@@ -1,6 +1,8 @@
 package com.my.HoopLocater.infrastructure.web.comment;
 
 import com.my.HoopLocater.application.comment.CommentCommandHandler;
+import com.my.HoopLocater.configuration.argumentResolver.AuthUserDto;
+import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.comment.dto.CommentDto;
 import com.my.HoopLocater.infrastructure.web.comment.dto.CommentCreateRequest;
 import com.my.HoopLocater.infrastructure.web.comment.dto.CommentDeleteRequest;
@@ -24,8 +26,8 @@ public class CommentCommandController {
                     """
     )
     @PostMapping
-    public CommentDto create(@RequestBody @Valid CommentCreateRequest request) {
-        return commandHandler.handler(request.toCommand());
+    public CommentDto create(@RequestBody @Valid CommentCreateRequest request, @RequestHeader("anonymousId") String anonymousId, @AuthUserDto UserDto userDto) {
+        return commandHandler.handler(request.toCommand(anonymousId, userDto));
     }
 
     @Operation(
@@ -37,8 +39,8 @@ public class CommentCommandController {
                     """
     )
     @DeleteMapping
-    public void update(@RequestBody @Valid CommentDeleteRequest request) {
-        commandHandler.handler(request.toCommand());
+    public void delete(@RequestBody @Valid CommentDeleteRequest request, @AuthUserDto UserDto userDto) {
+        commandHandler.handler(request.toCommand(userDto));
     }
 
 }

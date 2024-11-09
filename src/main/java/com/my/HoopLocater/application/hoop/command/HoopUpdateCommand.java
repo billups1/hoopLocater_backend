@@ -1,5 +1,6 @@
 package com.my.HoopLocater.application.hoop.command;
 
+import com.my.HoopLocater.domain.auth.dto.UserDto;
 import lombok.Getter;
 
 @Getter
@@ -12,7 +13,8 @@ public class HoopUpdateCommand {
     private String light;
     private String freeState;
     private String standardState;
-    private String loginId;
+    private String anonymousId;
+    private UserDto userDto;
 
     public HoopUpdateCommand(Long id,
                              String name,
@@ -21,7 +23,8 @@ public class HoopUpdateCommand {
                              String light,
                              String freeState,
                              String standardState,
-                             String loginId) {
+                             String anonymousId,
+                             UserDto userDto) {
         this.id = id;
         this.name = name;
         this.hoopCount = hoopCount;
@@ -29,7 +32,8 @@ public class HoopUpdateCommand {
         this.light = light;
         this.freeState = freeState;
         this.standardState = standardState;
-        this.loginId = loginId;
+        this.anonymousId = anonymousId;
+        this.userDto = userDto;
     }
 
     public static HoopUpdateCommand of(Long id,
@@ -39,8 +43,9 @@ public class HoopUpdateCommand {
                                        String light,
                                        String freeState,
                                        String standardState,
-                                       String loginId) {
-        return new HoopUpdateCommand(id, name, hoopCount, floorType, light, freeState, standardState, loginId);
+                                       String anonymousId,
+                                       UserDto userDto) {
+        return new HoopUpdateCommand(id, name, hoopCount, floorType, light, freeState, standardState, anonymousId, userDto);
     }
 
 }
