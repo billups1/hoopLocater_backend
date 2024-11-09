@@ -27,9 +27,15 @@ public class HoopCommandHandler {
             throw new CustomBusinessException("id로 농구장 정보를 찾을 수 없습니다.");
         });
 
-        hoop.updateContent(command.getName(), command.getHoopCount(), FloorType.valueOf(command.getFloorType()), Light.valueOf(command.getLight()),
-                FreeState.valueOf(command.getFreeState()), StandardState.valueOf(command.getStandardState()),
-                command.getLoginId());
+        hoop.updateContent(
+                command.getName(),
+                command.getHoopCount(),
+                FloorType.valueOf(command.getFloorType()),
+                Light.valueOf(command.getLight()),
+                FreeState.valueOf(command.getFreeState()),
+                StandardState.valueOf(command.getStandardState()),
+                command.getUserDto() == null ? command.getAnonymousId() : command.getUserDto().nickName()
+        );
 
         return HoopDto.from(hoop);
     }
