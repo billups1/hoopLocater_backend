@@ -39,7 +39,7 @@ public class HoopCommandController {
                     """
     )
     @PutMapping("/update")
-    public HoopDto update(@RequestBody @Valid HoopUpdateRequest request, @RequestHeader("@RequestHeader") String anonymousId, @AuthUserDto UserDto userDto) {
+    public HoopDto update(@RequestBody @Valid HoopUpdateRequest request, @RequestHeader("anonymousId") String anonymousId, @AuthUserDto UserDto userDto) {
         return commandHandler.handler(request.toCommand(anonymousId, userDto));
     }
 
