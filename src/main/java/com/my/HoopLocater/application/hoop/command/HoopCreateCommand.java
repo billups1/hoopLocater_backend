@@ -63,7 +63,7 @@ public class HoopCreateCommand {
                 .light(Light.valueOf(light))
                 .freeState(FreeState.valueOf(freeState))
                 .standardState(StandardState.valueOf(standardState))
-                .lastChangeUser(userDto == null ? anonymousId : userDto.nickName()) // UserDto가 없으면 익명 아이디로 저장
+                .lastChangeUser(userDto == null ? anonymousId : userDto.nickName()) // UserDto가 null 이면, anonymousId 저장
                 .hoopCount(0)
                 .build();
     }

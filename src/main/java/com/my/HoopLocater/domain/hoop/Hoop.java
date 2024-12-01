@@ -2,8 +2,12 @@ package com.my.HoopLocater.domain.hoop;
 
 import com.my.HoopLocater.application.hoop.HoopEntityListener;
 import com.my.HoopLocater.common.BaseTimeEntity;
+import com.my.HoopLocater.domain.storageFile.StorageImageFile;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -45,6 +49,9 @@ public class Hoop extends BaseTimeEntity { // 농구장
     @Column(name = "standardState")
     @Enumerated(EnumType.STRING)
     private StandardState standardState; // 규격(정규코트 여부)
+
+    @OneToMany(mappedBy = "hoop", fetch = FetchType.LAZY)
+    private List<StorageImageFile> storageImageFiles = new ArrayList<>(); // 농구장의 사진
 
     @Column(name = "lastChangeUser")
     private String lastChangeUser;

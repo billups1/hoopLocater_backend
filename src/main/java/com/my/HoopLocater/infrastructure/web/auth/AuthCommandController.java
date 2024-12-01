@@ -8,18 +8,16 @@ import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.infrastructure.web.auth.dto.AuthJoinRequest;
 import com.my.HoopLocater.infrastructure.web.auth.dto.AuthLoginRequest;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
-import static com.my.HoopLocater.configuration.auth.TokenProvider.*;
+import static com.my.HoopLocater.configuration.auth.TokenProvider.ACCESS_TOKEN_HEADER;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/auth")
+@RequestMapping
 @RestController
 public class AuthCommandController {
     private final AuthCommandHandler commandHandler;
@@ -32,7 +30,7 @@ public class AuthCommandController {
                     </p>
                     """
     )
-    @PostMapping("/join")
+    @PostMapping("/api/v1/auth/join")
     public UserDto join(@RequestBody @Valid AuthJoinRequest request, HttpServletResponse response) {
         var userDto = commandHandler.handler(request.toCommand());
         var tokenDto = commandHandler.handler(AuthGetLoginTokenCommand.of(userDto));
@@ -50,7 +48,7 @@ public class AuthCommandController {
                     </p>
                     """
     )
-    @PostMapping("/login")
+    @PostMapping("/api/v1/auth/login")
     public UserDto login(@RequestBody @Valid AuthLoginRequest request, HttpServletResponse response) {
         var userDto = commandHandler.handler(request.toCommand());
         var tokenDto = commandHandler.handler(AuthGetLoginTokenCommand.of(userDto));
@@ -69,7 +67,7 @@ public class AuthCommandController {
                     </p>
                     """
     )
-    @GetMapping("/myInfo")
+    @GetMapping("/api/v1/auth/myInfo")
     public UserDto myInfo(@AuthUserDto UserDto userDto, HttpServletRequest request) {
         return userDto;
     }
