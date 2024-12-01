@@ -24,12 +24,23 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: 2MB
+      max-file-size: 7MB
 
   security:
     user:
       name: test
       password: 1234
+
+  cloud:
+    aws:
+      credentials:
+        access-key: ${aws.access.key}
+        secret-key: ${aws.secret.key}
+      s3:
+        bucket: ${aws.s3.bucket}
+        url: ${aws.s3.url}
+      region:
+        static: ${aws.s3.region}
 
 jwt:
   secret-key: temporarySecretKeytemporarySecretKeytemporarySecretKeytemporarySecretKeytemporarySecretKey
