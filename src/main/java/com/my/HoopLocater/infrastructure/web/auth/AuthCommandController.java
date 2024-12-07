@@ -7,6 +7,8 @@ import com.my.HoopLocater.domain.auth.dto.TokenDto;
 import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.infrastructure.web.auth.dto.AuthJoinRequest;
 import com.my.HoopLocater.infrastructure.web.auth.dto.AuthLoginRequest;
+import com.my.HoopLocater.infrastructure.web.auth.dto.AuthPasswordResetRequest;
+import com.my.HoopLocater.infrastructure.web.auth.dto.AuthWithdrawalRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -70,6 +72,32 @@ public class AuthCommandController {
     @GetMapping("/api/v1/auth/myInfo")
     public UserDto myInfo(@AuthUserDto UserDto userDto, HttpServletRequest request) {
         return userDto;
+    }
+
+    @Operation(
+            summary = "회원탈퇴 API",
+            description = """
+                    <p>
+                        로그인한 유저의 회원 탈퇴
+                    </p>
+                    """
+    )
+    @PostMapping("/api/v1/auth/withdrawal")
+    public void withdrawal(@RequestBody @Valid AuthWithdrawalRequest request, @AuthUserDto UserDto userDto) {
+        commandHandler.handler(request.toCommand(userDto));
+    }
+
+    @Operation(
+            summary = "비밀번호 변경 API",
+            description = """
+                    <p>
+                        로그인한 회원의 비밀번호를 변경합니다.
+                    </p>
+                    """
+    )
+    @PostMapping("/api/v1/auth/passwordReset")
+    public UserDto passwordReset(@AuthUserDto UserDto userDto, @RequestBody @Valid AuthPasswordResetRequest request) {
+        return commandHandler.handler(request.toCommand(userDto));
     }
 
     private static void setAccessTokenInHeader(HttpServletResponse response, TokenDto tokenDto) {

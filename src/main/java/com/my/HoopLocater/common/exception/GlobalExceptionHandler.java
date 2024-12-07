@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
     protected ApiResponseDto handler(Throwable throwable) {
         return ApiResponseDto.builder()
                 .code(ApiResponseCode.FAIL.getCode())
-                .message(ApiResponseCode.FAIL.getMessage())
+                .message(throwable.getMessage())
                 .build();
     }
 

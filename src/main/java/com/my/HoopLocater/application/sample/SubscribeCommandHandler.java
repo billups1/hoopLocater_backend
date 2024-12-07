@@ -1,9 +1,9 @@
-package com.my.HoopLocater.application.subscribe;
+package com.my.HoopLocater.application.sample;
 
-import com.my.HoopLocater.application.subscribe.command.SubscribeCreateCommand;
-import com.my.HoopLocater.application.subscribe.command.SubscribeDeleteCommand;
-import com.my.HoopLocater.domain.subscribe.Subscribe;
-import com.my.HoopLocater.infrastructure.persistence.subscribe.SubscribeJpaRepository;
+import com.my.HoopLocater.application.sample.command.SubscribeCreateCommand;
+import com.my.HoopLocater.application.sample.command.SubscribeDeleteCommand;
+import com.my.HoopLocater.domain.sample.Subscribe;
+import com.my.HoopLocater.infrastructure.persistence.sample.SubscribeJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

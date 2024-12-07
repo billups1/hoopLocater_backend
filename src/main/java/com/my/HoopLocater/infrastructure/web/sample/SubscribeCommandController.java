@@ -1,8 +1,8 @@
-package com.my.HoopLocater.infrastructure.web.subscribe;
+package com.my.HoopLocater.infrastructure.web.sample;
 
-import com.my.HoopLocater.application.subscribe.SubscribeCommandHandler;
-import com.my.HoopLocater.application.subscribe.command.SubscribeCreateCommand;
-import com.my.HoopLocater.application.subscribe.command.SubscribeDeleteCommand;
+import com.my.HoopLocater.application.sample.SubscribeCommandHandler;
+import com.my.HoopLocater.application.sample.command.SubscribeCreateCommand;
+import com.my.HoopLocater.application.sample.command.SubscribeDeleteCommand;
 import com.my.HoopLocater.domain.auth.User;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.my.HoopLocater.infrastructure.persistence.subscribe;
+package com.my.HoopLocater.infrastructure.persistence.sample;
 
 import com.my.HoopLocater.domain.auth.User;
 import org.springframework.data.domain.Page;

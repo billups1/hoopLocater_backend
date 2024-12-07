@@ -1,4 +1,4 @@
-package com.my.HoopLocater.domain.subscribe;
+package com.my.HoopLocater.domain.sample;
 
 import com.my.HoopLocater.common.BaseTimeEntity;
 import com.my.HoopLocater.domain.auth.User;

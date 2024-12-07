@@ -1,10 +1,8 @@
-package com.my.HoopLocater.infrastructure.persistence.subscribe;
+package com.my.HoopLocater.infrastructure.persistence.sample;
 
 import com.my.HoopLocater.domain.auth.User;
-import com.my.HoopLocater.domain.subscribe.Subscribe;
-import com.querydsl.core.types.Projections;
+import com.my.HoopLocater.domain.sample.Subscribe;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
