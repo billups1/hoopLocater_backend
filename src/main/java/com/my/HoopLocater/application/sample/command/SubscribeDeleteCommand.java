@@ -1,4 +1,4 @@
-package com.my.HoopLocater.application.subscribe.command;
+package com.my.HoopLocater.application.sample.command;
 
 import com.my.HoopLocater.domain.auth.User;
 import lombok.Getter;

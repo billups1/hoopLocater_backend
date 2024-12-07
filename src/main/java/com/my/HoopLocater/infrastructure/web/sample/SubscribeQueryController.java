@@ -1,7 +1,7 @@
-package com.my.HoopLocater.infrastructure.web.subscribe;
+package com.my.HoopLocater.infrastructure.web.sample;
 
 
-import com.my.HoopLocater.application.subscribe.SubscribeQueryService;
+import com.my.HoopLocater.application.sample.SubscribeQueryService;
 import com.my.HoopLocater.domain.auth.User;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/subscribe")
+@RequestMapping
 public class SubscribeQueryController {
     private final SubscribeQueryService service;
 
@@ -26,7 +26,7 @@ public class SubscribeQueryController {
                     </p>
                     """
     )
-    @GetMapping("/list")
+    @GetMapping("/api/v1/subscribe/list")
     public Page<User> getSubscribeList(@PageableDefault(size = 9) Pageable pageable) {
         return service.getSubscribeList(pageable);
     }

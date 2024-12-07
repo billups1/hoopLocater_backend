@@ -55,4 +55,8 @@ public class StorageImageFile extends BaseTimeEntity { // 이미지파일
         this.savedFullPathName = savedFullPathName;
         this.s3Url = s3Url;
     }
+
+    public void changeUser(User user) {
+        this.user = user;
+    }
 }

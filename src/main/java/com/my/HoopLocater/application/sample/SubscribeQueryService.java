@@ -1,7 +1,7 @@
-package com.my.HoopLocater.application.subscribe;
+package com.my.HoopLocater.application.sample;
 
 import com.my.HoopLocater.domain.auth.User;
-import com.my.HoopLocater.infrastructure.persistence.subscribe.SubscribeJpaQueryRepository;
+import com.my.HoopLocater.infrastructure.persistence.sample.SubscribeJpaQueryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
