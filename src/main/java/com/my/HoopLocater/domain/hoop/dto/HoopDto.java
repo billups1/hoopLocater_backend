@@ -14,10 +14,12 @@ public record HoopDto(
         FreeState freeState,
         StandardState standardState,
         Integer commentCount,
-        String lastChangeUser
+        String lastChangeUser,
+        Integer likeCount,
+        Boolean likeState
 
 ) {
-    public static HoopDto from(Hoop hoop) {
+    public static HoopDto from(Hoop hoop, Boolean likeState) {
         return new HoopDto(
                 hoop.getId(),
                 hoop.getName(),
@@ -29,7 +31,9 @@ public record HoopDto(
                 hoop.getFreeState(),
                 hoop.getStandardState(),
                 hoop.getCommentCount(),
-                hoop.getLastChangeUser()
+                hoop.getLastChangeUser(),
+                hoop.getLikeCount(),
+                likeState
         );
     }
 
@@ -46,7 +50,9 @@ public record HoopDto(
                 hoop.getFreeState(),
                 hoop.getStandardState(),
                 hoop.getCommentCount(),
-                hoop.getLastChangeUser()
+                hoop.getLastChangeUser(),
+                hoop.getLikeCount(),
+                null
         );
     }
 }
