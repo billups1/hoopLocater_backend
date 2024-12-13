@@ -11,7 +11,6 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @EntityListeners(value = HoopEntityListener.class)
 @Entity(name = "hoops")
 public class Hoop extends BaseTimeEntity { // 농구장
@@ -58,8 +57,11 @@ public class Hoop extends BaseTimeEntity { // 농구장
     @Column(name = "comment_count", nullable = false)
     private int commentCount;
 
+    @Column(name = "like_count", nullable = false)
+    private int likeCount;
+
     @Builder
-    public Hoop(Long id, String name, Double latitude, Double longitude, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, String lastChangeUser) {
+    public Hoop(Long id, String name, Double latitude, Double longitude, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, List<StorageImageFile> storageImageFiles, String lastChangeUser, int commentCount, int likeCount) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
@@ -69,7 +71,10 @@ public class Hoop extends BaseTimeEntity { // 농구장
         this.light = light;
         this.freeState = freeState;
         this.standardState = standardState;
+        this.storageImageFiles = storageImageFiles;
         this.lastChangeUser = lastChangeUser;
+        this.commentCount = commentCount;
+        this.likeCount = likeCount;
     }
 
     public void updateContent(String name, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, String lastChangeUser) {
@@ -92,6 +97,14 @@ public class Hoop extends BaseTimeEntity { // 농구장
 
     public void minusCommentCount() {
         this.commentCount -= 1;
+    }
+
+    public void addLikeCount() {
+        this.likeCount += 1;
+    }
+
+    public void minusLikeCount() {
+        this.likeCount -= 1;
     }
 
 }

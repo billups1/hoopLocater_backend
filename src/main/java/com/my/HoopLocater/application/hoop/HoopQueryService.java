@@ -1,11 +1,10 @@
 package com.my.HoopLocater.application.hoop;
 
-import com.my.HoopLocater.common.exception.CustomBusinessException;
+import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.hoop.Hoop;
 import com.my.HoopLocater.domain.hoop.dto.HoopDto;
-import com.my.HoopLocater.domain.storageFile.StorageImageFile;
+import com.my.HoopLocater.infrastructure.persistence.hoop.HoopJpaQueryImplRepository;
 import com.my.HoopLocater.infrastructure.persistence.hoop.HoopJpaQueryRepository;
-import com.my.HoopLocater.infrastructure.persistence.hoop.HoopJpaRepository;
 import com.my.HoopLocater.infrastructure.persistence.storageFile.StorageFileJpaRepository;
 import com.my.HoopLocater.infrastructure.web.storageFile.dto.ImageFileResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,7 @@ import java.util.List;
 @Service
 public class HoopQueryService {
     private final HoopJpaQueryRepository hoopJpaQueryRepository;
-    private final HoopJpaRepository hoopJpaRepository;
+    private final HoopJpaQueryImplRepository hoopJpaQueryImplRepository;
     private final StorageFileJpaRepository storageFileJpaRepository;
 
     @Transactional(readOnly = true)
@@ -28,12 +27,8 @@ public class HoopQueryService {
         return hoopJpaQueryRepository.getHoopList();
     }
 
-    public HoopDto getHoop(Long hoopId) {
-        return HoopDto.from(
-                hoopJpaRepository.findById(hoopId).orElseThrow(() -> {
-                    throw new CustomBusinessException("id로 엔티티를 찾을 수 없습니다.");
-                })
-        );
+    public HoopDto getHoop(Long hoopId, String anonymousId, UserDto userDto) {
+        return hoopJpaQueryImplRepository.getHoop(hoopId, anonymousId, userDto);
     }
 
     public List<ImageFileResponseDto> getHoopPictures(Long hoopId) {

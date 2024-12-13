@@ -5,6 +5,7 @@ import com.my.HoopLocater.application.hoop.command.HoopUpdateCommand;
 import com.my.HoopLocater.common.exception.CustomBusinessException;
 import com.my.HoopLocater.domain.hoop.*;
 import com.my.HoopLocater.domain.hoop.dto.HoopDto;
+import com.my.HoopLocater.infrastructure.persistence.hoop.HoopJpaQueryImplRepository;
 import com.my.HoopLocater.infrastructure.persistence.hoop.HoopJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,10 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class HoopCommandHandler {
 
     final HoopJpaRepository hoopJpaRepository;
+    final HoopJpaQueryImplRepository hoopJpaQueryImplRepository;
 
     @Transactional
     public HoopDto handler(HoopCreateCommand command) {
-        return HoopDto.from(hoopJpaRepository.save(command.create()));
+        return HoopDto.from(hoopJpaRepository.save(command.create()), null);
     }
 
     @Transactional
@@ -37,7 +39,7 @@ public class HoopCommandHandler {
                 command.getUserDto() == null ? command.getAnonymousId() : command.getUserDto().nickName()
         );
 
-        return HoopDto.from(hoop);
+        return hoopJpaQueryImplRepository.getHoop(command.getId(), command.getAnonymousId(), command.getUserDto());
     }
 
 }

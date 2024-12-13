@@ -64,6 +64,8 @@ public class HoopCreateCommand {
                 .freeState(FreeState.valueOf(freeState))
                 .standardState(StandardState.valueOf(standardState))
                 .lastChangeUser(userDto == null ? anonymousId : userDto.nickName()) // UserDto가 null 이면, anonymousId 저장
+                .commentCount(0)
+                .likeCount(0)
                 .build();
     }
 }

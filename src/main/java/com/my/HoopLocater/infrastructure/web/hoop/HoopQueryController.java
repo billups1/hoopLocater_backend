@@ -2,14 +2,13 @@ package com.my.HoopLocater.infrastructure.web.hoop;
 
 
 import com.my.HoopLocater.application.hoop.HoopQueryService;
+import com.my.HoopLocater.configuration.argumentResolver.AuthUserDto;
+import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.hoop.dto.HoopDto;
 import com.my.HoopLocater.infrastructure.web.storageFile.dto.ImageFileResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,8 +40,8 @@ public class HoopQueryController {
                     """
     )
     @GetMapping("/api/v1/hoop/{hoopId}")
-    public HoopDto getHoop(@PathVariable(name = "hoopId") Long hoopId) {
-        return service.getHoop(hoopId);
+    public HoopDto getHoop(@PathVariable(name = "hoopId") Long hoopId, @RequestHeader("anonymousId") String anonymousId, @AuthUserDto UserDto userDto) {
+        return service.getHoop(hoopId, anonymousId, userDto);
     }
 
     @Operation(
