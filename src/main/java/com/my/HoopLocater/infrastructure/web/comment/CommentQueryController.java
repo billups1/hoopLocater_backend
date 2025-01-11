@@ -2,6 +2,8 @@ package com.my.HoopLocater.infrastructure.web.comment;
 
 
 import com.my.HoopLocater.application.comment.CommentQueryService;
+import com.my.HoopLocater.configuration.argumentResolver.AuthUserDto;
+import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.comment.dto.CommentDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/comment")
+@RequestMapping
 public class CommentQueryController {
     private final CommentQueryService service;
 
@@ -27,9 +29,9 @@ public class CommentQueryController {
                     </p>
                     """
     )
-    @GetMapping("/{hoopId}")
-    public Page<CommentDto> getCommentList(@PathVariable(name = "hoopId") Long hoopId, @PageableDefault(size = 100) Pageable pageable) {
-        return service.getHoopList(hoopId, pageable);
+    @GetMapping("/api/v1/comment/{hoopId}")
+    public Page<CommentDto> getCommentList(@PathVariable(name = "hoopId") Long hoopId, @AuthUserDto UserDto userDto, @PageableDefault(size = 100) Pageable pageable) {
+        return service.getHoopList(hoopId, userDto, pageable);
     }
 
 }

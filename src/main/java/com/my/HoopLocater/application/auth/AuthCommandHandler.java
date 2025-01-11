@@ -26,6 +26,7 @@ public class AuthCommandHandler {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final StorageFileJpaRepository storageFileJpaRepository;
     private final TokenProvider tokenProvider;
+    private final AuthQueryService authQueryService;
     public static String[] LOGIN_ID_BLACKLIST = {"anonymous", "비회원", "admin"};
     public static Long WITHDRAWAL_USER_ID = 10L; // TODO 탈퇴 회원 아이디 지정
 
@@ -95,6 +96,18 @@ public class AuthCommandHandler {
 
         user.updatePassword(bCryptPasswordEncoder.encode(command.getNewPassword()));
 
+        return UserDto.from(user);
+    }
+
+    @Transactional
+    public UserDto handler(AuthProfileSettingCommand command) {
+        if (authQueryService.nickNameDuplicationCheck(command.getNickName())) {
+            throw new CustomAuthException("중복 닉네임 입니다.");
+        }
+        User user = userJpaRepository.findById(command.getUserDto().id()).orElseThrow(() -> {
+            throw new CustomAuthException("입력된 로그인 id로 회원을 찾을 수 없습니다.");
+        });
+        user.updateUserInfo(command.getNickName());
         return UserDto.from(user);
     }
 }

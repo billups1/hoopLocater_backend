@@ -5,10 +5,7 @@ import com.my.HoopLocater.application.auth.command.AuthGetLoginTokenCommand;
 import com.my.HoopLocater.configuration.argumentResolver.AuthUserDto;
 import com.my.HoopLocater.domain.auth.dto.TokenDto;
 import com.my.HoopLocater.domain.auth.dto.UserDto;
-import com.my.HoopLocater.infrastructure.web.auth.dto.AuthJoinRequest;
-import com.my.HoopLocater.infrastructure.web.auth.dto.AuthLoginRequest;
-import com.my.HoopLocater.infrastructure.web.auth.dto.AuthPasswordResetRequest;
-import com.my.HoopLocater.infrastructure.web.auth.dto.AuthWithdrawalRequest;
+import com.my.HoopLocater.infrastructure.web.auth.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -97,6 +94,19 @@ public class AuthCommandController {
     )
     @PostMapping("/api/v1/auth/passwordReset")
     public UserDto passwordReset(@AuthUserDto UserDto userDto, @RequestBody @Valid AuthPasswordResetRequest request) {
+        return commandHandler.handler(request.toCommand(userDto));
+    }
+
+    @Operation(
+            summary = "회원정보 변경 요청",
+            description = """
+                <p>
+                    로그인한 회원의 닉네임을 변경합니다.
+                </p>
+            """
+    )
+    @PostMapping("/api/v1/auth/setting/profile")
+    public UserDto profileSetting(@AuthUserDto UserDto userDto, @RequestBody @Valid AuthProfileSettingRequest request) {
         return commandHandler.handler(request.toCommand(userDto));
     }
 

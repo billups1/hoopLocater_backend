@@ -1,5 +1,6 @@
 package com.my.HoopLocater.application.report.command;
 
+import com.my.HoopLocater.domain.auth.User;
 import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.hoop.Hoop;
 import com.my.HoopLocater.domain.report.Report;
@@ -34,7 +35,8 @@ public class ReportCreateCommand {
         return Report.builder()
                 .hoop(new Hoop(hoopId))
                 .reason(reason)
-                .writer(userDto == null ? anonymousId : userDto.nickName()) // UserDto가 없으면 익명 아이디로 저장
+                .user(userDto != null ? User.builder().id(userDto.id()).build() : null)
+                .anonymousId(userDto != null ? null : anonymousId)
                 .build();
     }
 

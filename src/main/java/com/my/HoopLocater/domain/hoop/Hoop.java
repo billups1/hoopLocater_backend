@@ -2,6 +2,7 @@ package com.my.HoopLocater.domain.hoop;
 
 import com.my.HoopLocater.application.hoop.HoopEntityListener;
 import com.my.HoopLocater.common.BaseTimeEntity;
+import com.my.HoopLocater.domain.auth.User;
 import com.my.HoopLocater.domain.storageFile.StorageImageFile;
 import jakarta.persistence.*;
 import lombok.*;
@@ -51,17 +52,21 @@ public class Hoop extends BaseTimeEntity { // 농구장
     @OneToMany(mappedBy = "hoop", fetch = FetchType.LAZY)
     private List<StorageImageFile> storageImageFiles = new ArrayList<>(); // 농구장의 사진
 
-    @Column(name = "lastChangeUser")
-    private String lastChangeUser;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(name = "anonymous_id")
+    private String anonymousId;
 
     @Column(name = "comment_count", nullable = false)
-    private int commentCount;
+    private Integer commentCount;
 
     @Column(name = "like_count", nullable = false)
-    private int likeCount;
+    private Integer likeCount;
 
     @Builder
-    public Hoop(Long id, String name, Double latitude, Double longitude, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, List<StorageImageFile> storageImageFiles, String lastChangeUser, int commentCount, int likeCount) {
+    public Hoop(Long id, String name, Double latitude, Double longitude, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, List<StorageImageFile> storageImageFiles, User user, String anonymousId, int commentCount, int likeCount) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
@@ -72,19 +77,21 @@ public class Hoop extends BaseTimeEntity { // 농구장
         this.freeState = freeState;
         this.standardState = standardState;
         this.storageImageFiles = storageImageFiles;
-        this.lastChangeUser = lastChangeUser;
+        this.user = user;
+        this.anonymousId = anonymousId;
         this.commentCount = commentCount;
         this.likeCount = likeCount;
     }
 
-    public void updateContent(String name, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, String lastChangeUser) {
+    public void updateContent(String name, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, User user, String anonymousId) {
         this.name = name;
         this.hoopCount = hoopCount;
         this.floorType = floorType;
         this.light = light;
         this.freeState = freeState;
         this.standardState = standardState;
-        this.lastChangeUser = lastChangeUser;
+        this.user = user;
+        this.anonymousId = anonymousId;
     }
 
     public Hoop(Long id) {

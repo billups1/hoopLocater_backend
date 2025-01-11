@@ -1,6 +1,7 @@
 package com.my.HoopLocater.domain.like;
 
 import com.my.HoopLocater.common.BaseTimeEntity;
+import com.my.HoopLocater.domain.auth.User;
 import com.my.HoopLocater.domain.hoop.Hoop;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,8 +25,12 @@ public class Like extends BaseTimeEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "writer")
-    private String writer;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(name = "anonymous_id")
+    private String anonymousId;
 
     @ManyToOne
     @JoinColumn(name = "hoop")

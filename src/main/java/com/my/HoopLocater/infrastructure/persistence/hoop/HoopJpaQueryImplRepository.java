@@ -48,15 +48,15 @@ public class HoopJpaQueryImplRepository extends QuerydslRepositorySupport implem
         if (likeList.size() == 0) {
             return HoopDto.from(hoopEntity, false);
         } else {
-            if (userDto == null) {
+            if (userDto == null) { // 비회원일때
                 for (Like like1 : likeList) {
-                    if (like1.getWriter().equals(anonymousId)) {
+                    if (anonymousId.equals(like1.getAnonymousId())) {
                         return HoopDto.from(hoopEntity, true);
                     }
                 }
-            } else {
+            } else { // 회원일때
                 for (Like like1 : likeList) {
-                    if (like1.getWriter().equals(userDto.nickName())) {
+                    if (like1.getUser() != null && userDto.id().equals(like1.getUser().getId())) {
                         return HoopDto.from(hoopEntity, true);
                     }
                 }

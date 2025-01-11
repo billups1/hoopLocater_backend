@@ -53,8 +53,8 @@ public class HoopQueryController {
                     """
     )
     @GetMapping("/api/v1/hoop/picture/{hoopId}")
-    public List<ImageFileResponseDto> getHoopPictures(@PathVariable(name = "hoopId") Long hoopId) {
-        return service.getHoopPictures(hoopId);
+    public List<ImageFileResponseDto> getHoopPictures(@PathVariable(name = "hoopId") Long hoopId, @AuthUserDto UserDto userDto) {
+        return service.getHoopPictures(hoopId, userDto);
     }
 
 }

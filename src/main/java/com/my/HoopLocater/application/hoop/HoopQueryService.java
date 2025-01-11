@@ -31,9 +31,18 @@ public class HoopQueryService {
         return hoopJpaQueryImplRepository.getHoop(hoopId, anonymousId, userDto);
     }
 
-    public List<ImageFileResponseDto> getHoopPictures(Long hoopId) {
-        return storageFileJpaRepository.findAllByHoopOrderByIdDesc(Hoop.builder().id(hoopId).build()).stream().map(
-                storageImageFile -> ImageFileResponseDto.from(storageImageFile)
-        ).toList();
+    public List<ImageFileResponseDto> getHoopPictures(Long hoopId, UserDto userDto) {
+        if (userDto == null) {
+            return storageFileJpaRepository.findAllByHoopOrderByIdDesc(Hoop.builder().id(hoopId).build()).stream().map(
+                    storageImageFile -> ImageFileResponseDto.from(storageImageFile, false)
+            ).toList();
+        } else {
+            return storageFileJpaRepository.findAllByHoopOrderByIdDesc(Hoop.builder().id(hoopId).build()).stream().map(
+                    storageImageFile -> ImageFileResponseDto.from(
+                            storageImageFile,
+                            storageImageFile.getUser() != null? storageImageFile.getUser().getId() == userDto.id() : false
+                            )
+            ).toList();
+        }
     }
 }

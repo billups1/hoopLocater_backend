@@ -1,6 +1,7 @@
 package com.my.HoopLocater.domain.hoopBackup;
 
 import com.my.HoopLocater.common.BaseTimeEntity;
+import com.my.HoopLocater.domain.auth.User;
 import com.my.HoopLocater.domain.hoop.FloorType;
 import com.my.HoopLocater.domain.hoop.FreeState;
 import com.my.HoopLocater.domain.hoop.Light;
@@ -51,14 +52,18 @@ public class HoopBackup extends BaseTimeEntity { // 농구장 백업
     @Enumerated(EnumType.STRING)
     private StandardState standardState; // 규격(정규코트 여부)
 
-    @Column(name = "lastChangeUser")
-    private String lastChangeUser;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(name = "anonymous_id")
+    private String anonymousId;
 
     @Column(name = "updateMethod")
     @Enumerated(EnumType.STRING)
     private UpdateMethod updateMethod; // 업데이트 방법
 
-    public void updateContent(Long hoopId, String name, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, String lastChangeUser) {
+    public void updateContent(Long hoopId, String name, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, User user, String anonymousId) {
         this.hoopId = hoopId;
         this.name = name;
         this.hoopCount = hoopCount;
@@ -66,7 +71,8 @@ public class HoopBackup extends BaseTimeEntity { // 농구장 백업
         this.light = light;
         this.freeState = freeState;
         this.standardState = standardState;
-        this.lastChangeUser = lastChangeUser;
+        this.user = user;
+        this.anonymousId = anonymousId;
     }
 
     public HoopBackup(Long id) {
