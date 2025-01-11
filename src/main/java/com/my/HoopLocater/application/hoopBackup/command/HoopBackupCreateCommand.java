@@ -1,5 +1,6 @@
 package com.my.HoopLocater.application.hoopBackup.command;
 
+import com.my.HoopLocater.domain.auth.User;
 import com.my.HoopLocater.domain.hoop.*;
 import com.my.HoopLocater.domain.hoopBackup.HoopBackup;
 import com.my.HoopLocater.domain.hoopBackup.UpdateMethod;
@@ -17,7 +18,8 @@ public class HoopBackupCreateCommand {
     private Light light;
     private FreeState freeState;
     private StandardState standardState;
-    private String lastChangeUser;
+    private User user;
+    private String anonymousId;
     private UpdateMethod updateMethod;
 
     public HoopBackupCreateCommand(Long hoopId,
@@ -29,7 +31,8 @@ public class HoopBackupCreateCommand {
                                    Light light,
                                    FreeState freeState,
                                    StandardState standardState,
-                                   String lastChangeUser,
+                                   User user,
+                                   String anonymousId,
                                    UpdateMethod updateMethod) {
         this.hoopId = hoopId;
         this.name = name;
@@ -40,7 +43,8 @@ public class HoopBackupCreateCommand {
         this.light = light;
         this.freeState = freeState;
         this.standardState = standardState;
-        this.lastChangeUser = lastChangeUser;
+        this.user = user;
+        this.anonymousId = anonymousId;
         this.updateMethod = updateMethod;
     }
 
@@ -53,13 +57,15 @@ public class HoopBackupCreateCommand {
                                              Light light,
                                              FreeState freeState,
                                              StandardState standardState,
-                                             String lastChangeUser,
+                                             User user,
+                                             String anonymousId,
                                              UpdateMethod updateMethod) {
-        return new HoopBackupCreateCommand(hoopId, name, latitude, longitude, hoopCount, floorType, light, freeState, standardState, lastChangeUser, updateMethod);
+        return new HoopBackupCreateCommand(hoopId, name, latitude, longitude, hoopCount, floorType, light, freeState, standardState, user, anonymousId, updateMethod);
     }
 
     public static HoopBackupCreateCommand of(Hoop hoop, UpdateMethod updateMethod) {
-        return new HoopBackupCreateCommand(hoop.getId(), hoop.getName(), hoop.getLatitude(), hoop.getLongitude(), hoop.getHoopCount(), hoop.getFloorType(), hoop.getLight(), hoop.getFreeState(), hoop.getStandardState(), hoop.getLastChangeUser(), updateMethod);
+        return new HoopBackupCreateCommand(hoop.getId(), hoop.getName(), hoop.getLatitude(), hoop.getLongitude(), hoop.getHoopCount(), hoop.getFloorType(), hoop.getLight(), hoop.getFreeState(), hoop.getStandardState(),
+                hoop.getUser(), hoop.getAnonymousId(), updateMethod);
     }
 
     public HoopBackup create() {
@@ -73,7 +79,8 @@ public class HoopBackupCreateCommand {
                 .light(light)
                 .freeState(freeState)
                 .standardState(standardState)
-                .lastChangeUser(lastChangeUser)
+                .user(user)
+                .anonymousId(anonymousId)
                 .updateMethod(updateMethod)
                 .build();
     }

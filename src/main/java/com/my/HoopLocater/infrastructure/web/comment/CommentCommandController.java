@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/comment")
+@RequestMapping
 @RestController
 public class CommentCommandController {
     private final CommentCommandHandler commandHandler;
@@ -25,7 +25,7 @@ public class CommentCommandController {
                     </p>
                     """
     )
-    @PostMapping
+    @PostMapping("/api/v1/comment")
     public CommentDto create(@RequestBody @Valid CommentCreateRequest request, @RequestHeader("anonymousId") String anonymousId, @AuthUserDto UserDto userDto) {
         return commandHandler.handler(request.toCommand(anonymousId, userDto));
     }
@@ -38,7 +38,7 @@ public class CommentCommandController {
                     </p>
                     """
     )
-    @DeleteMapping
+    @PostMapping("/api/v1/comment/delete")
     public void delete(@RequestBody @Valid CommentDeleteRequest request, @AuthUserDto UserDto userDto) {
         commandHandler.handler(request.toCommand(userDto));
     }

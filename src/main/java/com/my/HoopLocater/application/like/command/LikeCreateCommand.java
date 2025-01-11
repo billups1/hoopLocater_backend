@@ -1,5 +1,6 @@
 package com.my.HoopLocater.application.like.command;
 
+import com.my.HoopLocater.domain.auth.User;
 import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.hoop.*;
 import com.my.HoopLocater.domain.like.Like;
@@ -29,7 +30,8 @@ public class LikeCreateCommand {
     public Like create() {
         return Like.builder()
                 .hoop(Hoop.builder().id(hoopId).build())
-                .writer(userDto == null ? anonymousId : userDto.nickName()) // UserDto가 null 이면, anonymousId 저장
+                .user(userDto != null ? User.builder().id(userDto.id()).build() : null)
+                .anonymousId(userDto != null ? null : anonymousId)
                 .build();
     }
 }

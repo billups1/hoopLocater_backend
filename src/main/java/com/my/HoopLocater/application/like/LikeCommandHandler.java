@@ -3,6 +3,7 @@ package com.my.HoopLocater.application.like;
 import com.my.HoopLocater.application.like.command.LikeCreateCommand;
 import com.my.HoopLocater.application.like.command.LikeDeleteCommand;
 import com.my.HoopLocater.common.exception.CustomBusinessException;
+import com.my.HoopLocater.domain.auth.User;
 import com.my.HoopLocater.domain.hoop.Hoop;
 import com.my.HoopLocater.domain.like.Like;
 import com.my.HoopLocater.infrastructure.persistence.hoop.HoopJpaRepository;
@@ -34,9 +35,10 @@ public class LikeCommandHandler {
     @Transactional
     public void handler(LikeDeleteCommand command) {
         Like like;
-        like = likeJpaRepository.findByHoopAndWriter(Hoop.builder().id(command.getHoopId()).build(), command.getAnonymousId());
-        if (like == null) {
-            like = likeJpaRepository.findByHoopAndWriter(Hoop.builder().id(command.getHoopId()).build(), command.getUserDto().nickName());
+        if (command.getUserDto() == null) {
+            like = likeJpaRepository.findByHoopAndUser(Hoop.builder().id(command.getHoopId()).build(), User.builder().id(command.getUserDto().id()).build());
+        } else {
+            like = likeJpaRepository.findByHoopAndAnonymousId(Hoop.builder().id(command.getHoopId()).build(), command.getAnonymousId());
         }
 
         if (like != null) {

@@ -20,9 +20,9 @@ public class HoopEntityListener {
         publisher.publishEvent(new HoopCreatedEvent(createdHoop));
     }
 
-    @PostUpdate
-    public void updateLogData(Hoop updateHoop) {
-        publisher.publishEvent(new HoopUpdateEvent(updateHoop));
-    }
+//    @PostUpdate
+//    public void updateLogData(Hoop updateHoop) {
+//        publisher.publishEvent(new HoopUpdateEvent(updateHoop));
+//    }
 
 }

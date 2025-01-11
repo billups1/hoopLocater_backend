@@ -1,5 +1,6 @@
 package com.my.HoopLocater.application.comment.command;
 
+import com.my.HoopLocater.domain.auth.User;
 import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.comment.Comment;
 import com.my.HoopLocater.domain.hoop.*;
@@ -32,7 +33,8 @@ public class CommentCreateCommand {
 
     public Comment create() {
         return Comment.builder()
-                .writer(userDto == null ? anonymousId : userDto.nickName())
+                .user(userDto != null ? User.builder().id(userDto.id()).build() : null)
+                .anonymousId(userDto != null ? null : anonymousId)
                 .hoop(new Hoop(hoopId))
                 .content(content)
                 .build();

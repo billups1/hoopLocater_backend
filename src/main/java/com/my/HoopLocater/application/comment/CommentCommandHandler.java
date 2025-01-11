@@ -33,8 +33,9 @@ public class CommentCommandHandler {
         });
         var hoop = comment.getHoop();
 
+        // 댓글은 유저만(비회원 X) 삭제할 수 있도록 함
         if (command.getUserDto() != null) {
-            if (!comment.getWriter().equals(command.getUserDto().nickName())) {
+            if (!comment.getUser().getId().equals(command.getUserDto().id())) {
                 throw new CustomBusinessException("댓글 작성자가 아니므로 댓글을 삭제할 수 없습니다.");
             }
         } else {

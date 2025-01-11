@@ -19,9 +19,9 @@ public class HoopBackupEventListener {
         commandHandler.handler(HoopBackupCreateCommand.of(hoopCreatedEvent.hoop(), UpdateMethod.CREATE));
     }
 
-    @EventListener
-    public void handle(HoopUpdateEvent hoopUpdateEvent) {
-        commandHandler.handler(HoopBackupCreateCommand.of(hoopUpdateEvent.hoop(), UpdateMethod.UPDATE));
-    }
+//    @EventListener
+//    public void handle(HoopUpdateEvent hoopUpdateEvent) {
+//        commandHandler.handler(HoopBackupCreateCommand.of(hoopUpdateEvent.hoop(), UpdateMethod.UPDATE));
+//    }
 
 }

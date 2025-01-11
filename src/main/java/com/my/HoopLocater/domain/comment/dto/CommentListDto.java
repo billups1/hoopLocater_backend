@@ -1,5 +1,6 @@
 package com.my.HoopLocater.domain.comment.dto;
 
+import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.comment.Comment;
 
 public record CommentListDto(
@@ -10,13 +11,13 @@ public record CommentListDto(
         Boolean myCommentState
 
 ) {
-    public static CommentListDto from(Comment comment, String loginUserId) {
+    public static CommentListDto from(Comment comment, UserDto userDto, String anonymousId) {
         return new CommentListDto(
                 comment.getId(),
-                comment.getWriter(),
+                comment.getUser() != null ? comment.getUser().getNickName() : comment.getAnonymousId(),
                 comment.getHoop().getId(),
                 comment.getContent(),
-                comment.getWriter().equals(loginUserId)
+                userDto != null ? comment.getUser().getId() == userDto.id() : comment.getAnonymousId().equals(anonymousId)
         );
     }
 

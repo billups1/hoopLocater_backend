@@ -1,6 +1,7 @@
 package com.my.HoopLocater.domain.report;
 
 import com.my.HoopLocater.common.BaseTimeEntity;
+import com.my.HoopLocater.domain.auth.User;
 import com.my.HoopLocater.domain.hoop.Hoop;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,8 +25,12 @@ public class Report extends BaseTimeEntity {
     @Column(name = "reason")
     private String reason;
 
-    @Column(name = "writer")
-    private String writer;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(name = "anonymous_id")
+    private String anonymousId;
 
     public Report(Long id) {
         this.id = id;

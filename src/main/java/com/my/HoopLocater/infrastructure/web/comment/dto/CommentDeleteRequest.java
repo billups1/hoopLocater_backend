@@ -9,16 +9,13 @@ public record CommentDeleteRequest(
 
         @Schema(description = "댓글 id", example = "1")
         @NotEmpty
-        Long id,
-        @Schema(description = "작성자", example = "aaaaaaaa")
-        String writer
+        Long id
 
 
 ) {
     public CommentDeleteCommand toCommand(UserDto userDto) {
         return CommentDeleteCommand.of(
                 id,
-                writer,
                 userDto
         );
     }

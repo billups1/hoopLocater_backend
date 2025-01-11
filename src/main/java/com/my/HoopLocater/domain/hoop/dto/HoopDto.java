@@ -13,8 +13,8 @@ public record HoopDto(
         Light light,
         FreeState freeState,
         StandardState standardState,
-        Integer commentCount,
         String lastChangeUser,
+        Integer commentCount,
         Integer likeCount,
         Boolean likeState
 
@@ -30,8 +30,8 @@ public record HoopDto(
                 hoop.getLight(),
                 hoop.getFreeState(),
                 hoop.getStandardState(),
+                hoop.getUser() != null ? hoop.getUser().getNickName() : hoop.getAnonymousId(),
                 hoop.getCommentCount(),
-                hoop.getLastChangeUser(),
                 hoop.getLikeCount(),
                 likeState
         );
@@ -49,8 +49,8 @@ public record HoopDto(
                 hoop.getLight(),
                 hoop.getFreeState(),
                 hoop.getStandardState(),
+                hoop.getUser() != null ? hoop.getUser().getNickName() : hoop.getAnonymousId(),
                 hoop.getCommentCount(),
-                hoop.getLastChangeUser(),
                 hoop.getLikeCount(),
                 null
         );

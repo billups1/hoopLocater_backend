@@ -1,5 +1,6 @@
 package com.my.HoopLocater.application.hoop.command;
 
+import com.my.HoopLocater.domain.auth.User;
 import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.hoop.*;
 import lombok.Getter;
@@ -63,7 +64,8 @@ public class HoopCreateCommand {
                 .light(Light.valueOf(light))
                 .freeState(FreeState.valueOf(freeState))
                 .standardState(StandardState.valueOf(standardState))
-                .lastChangeUser(userDto == null ? anonymousId : userDto.nickName()) // UserDto가 null 이면, anonymousId 저장
+                .user(userDto != null ? User.builder().id(userDto.id()).build() : null)
+                .anonymousId(userDto != null ? null : anonymousId)
                 .commentCount(0)
                 .likeCount(0)
                 .build();

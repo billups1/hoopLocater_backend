@@ -1,5 +1,6 @@
 package com.my.HoopLocater.application.comment;
 
+import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.comment.dto.CommentDto;
 import com.my.HoopLocater.infrastructure.persistence.comment.CommentJpaQueryRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class CommentQueryService {
     private final CommentJpaQueryRepository commentJpaQueryRepository;
 
     @Transactional(readOnly = true)
-    public Page<CommentDto> getHoopList(Long hoopId, Pageable pageable) {
-        return commentJpaQueryRepository.getCommentListByHoopId(hoopId, pageable);
+    public Page<CommentDto> getHoopList(Long hoopId, UserDto userDto, Pageable pageable) {
+        return commentJpaQueryRepository.getCommentListByHoopId(hoopId, userDto, pageable);
     }
 }
