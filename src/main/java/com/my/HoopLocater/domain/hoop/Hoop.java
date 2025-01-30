@@ -114,4 +114,7 @@ public class Hoop extends BaseTimeEntity { // 농구장
         this.likeCount -= 1;
     }
 
+    public void changeUser(User user) {
+        this.user = user;
+    }
 }

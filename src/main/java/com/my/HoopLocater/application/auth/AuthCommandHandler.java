@@ -6,8 +6,14 @@ import com.my.HoopLocater.configuration.auth.TokenProvider;
 import com.my.HoopLocater.domain.auth.User;
 import com.my.HoopLocater.domain.auth.dto.TokenDto;
 import com.my.HoopLocater.domain.auth.dto.UserDto;
+import com.my.HoopLocater.domain.comment.Comment;
+import com.my.HoopLocater.domain.hoop.Hoop;
+import com.my.HoopLocater.domain.like.Like;
 import com.my.HoopLocater.domain.storageFile.StorageImageFile;
 import com.my.HoopLocater.infrastructure.persistence.auth.UserJpaRepository;
+import com.my.HoopLocater.infrastructure.persistence.comment.CommentJpaRepository;
+import com.my.HoopLocater.infrastructure.persistence.hoop.HoopJpaRepository;
+import com.my.HoopLocater.infrastructure.persistence.like.LikeJpaRepository;
 import com.my.HoopLocater.infrastructure.persistence.storageFile.StorageFileJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -25,10 +31,13 @@ public class AuthCommandHandler {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final StorageFileJpaRepository storageFileJpaRepository;
+    private final HoopJpaRepository hoopJpaRepository;
+    private final CommentJpaRepository commentJpaRepository;
+    private final LikeJpaRepository likeJpaRepository;
     private final TokenProvider tokenProvider;
     private final AuthQueryService authQueryService;
     public static String[] LOGIN_ID_BLACKLIST = {"anonymous", "비회원", "admin"};
-    public static Long WITHDRAWAL_USER_ID = 10L; // TODO 탈퇴 회원 아이디 지정
+    public static Long WITHDRAWAL_USER_ID = 10L;
 
     @Transactional
     public UserDto handler(AuthJoinCommand command) {
@@ -75,10 +84,21 @@ public class AuthCommandHandler {
             throw new CustomAuthException("비밀번호가 일치하지 않습니다.");
         }
 
-        List<StorageImageFile> storageImageFiles = storageFileJpaRepository.findAllByUser(user);
-        for (StorageImageFile storageImageFile : storageImageFiles) {
-            storageImageFile.changeUser(User.builder().id(WITHDRAWAL_USER_ID).build()); // 탈퇴 회원으로 변경
+        // 탈퇴 유저가 만든 데이터의 user를 탈퇴 회원으로 바꾸기
+        User withrawalUser = User.builder().id(WITHDRAWAL_USER_ID).build();
+        for (StorageImageFile storageImageFile : storageFileJpaRepository.findAllByUser(user)) {
+            storageImageFile.changeUser(withrawalUser); // 탈퇴 회원으로 변경
         }
+        for (Hoop hoop : hoopJpaRepository.findAllByUser(user)) {
+            hoop.changeUser(withrawalUser);
+        }
+        for (Comment comment : commentJpaRepository.findAllByUser(user)) {
+            comment.changeUser(withrawalUser);
+        }
+        for (Like like : likeJpaRepository.findAllByUser(user)) {
+            like.changeUser(withrawalUser);
+        }
+
         user.softDelete();
     }
 

@@ -36,4 +36,7 @@ public class Like extends BaseTimeEntity {
     @JoinColumn(name = "hoop")
     private Hoop hoop;
 
+    public void changeUser(User user) {
+        this.user = user;
+    }
 }
