@@ -1,6 +1,5 @@
 package com.my.HoopLocater.domain.apiLog;
 
-import com.my.HoopLocater.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity(name = "apiLogs")
 @Builder
 @AllArgsConstructor
-public class ApiLog extends BaseTimeEntity {
+public class ApiLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +22,9 @@ public class ApiLog extends BaseTimeEntity {
 
     @Column(name = "request_method")
     private String requestMethod;
+
+    @Column(name = "user_agent")
+    private String userAgent;
 
     @Column(name = "response_status")
     private String responseStatus;
