@@ -31,6 +31,12 @@ public class User extends BaseTimeEntity {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
+
     @Column(name = "provider")
     private String provider; // 소셜로그인 업체
 
@@ -62,5 +68,10 @@ public class User extends BaseTimeEntity {
 
     public void updateUserInfo(String nickName) {
         this.nickName = nickName;
+    }
+
+    public void defaultLocation(Double latitude, Double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 }

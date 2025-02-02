@@ -1,6 +1,7 @@
 package com.my.HoopLocater.infrastructure.web.auth;
 
 import com.my.HoopLocater.application.auth.AuthCommandHandler;
+import com.my.HoopLocater.application.auth.command.AuthDefaultLocationCommand;
 import com.my.HoopLocater.application.auth.command.AuthGetLoginTokenCommand;
 import com.my.HoopLocater.configuration.argumentResolver.AuthUserDto;
 import com.my.HoopLocater.domain.auth.dto.TokenDto;
@@ -108,6 +109,19 @@ public class AuthCommandController {
     @PostMapping("/api/v1/auth/setting/profile")
     public UserDto profileSetting(@AuthUserDto UserDto userDto, @RequestBody @Valid AuthProfileSettingRequest request) {
         return commandHandler.handler(request.toCommand(userDto));
+    }
+
+    @Operation(
+            summary = "기본 위치 설정",
+            description = """
+                <p>
+                    로그인한 회원의 기본 위치를 설정합니다.
+                </p>
+            """
+    )
+    @PostMapping("/api/v1/auth/defaultLocation")
+    public void defaultLocation(@AuthUserDto UserDto userDto, @RequestBody UserDto user) {
+        commandHandler.handler(AuthDefaultLocationCommand.of(user.latitude(), user.longitude(), userDto));
     }
 
     private static void setAccessTokenInHeader(HttpServletResponse response, TokenDto tokenDto) {
