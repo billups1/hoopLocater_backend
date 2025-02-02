@@ -130,4 +130,12 @@ public class AuthCommandHandler {
         user.updateUserInfo(command.getNickName());
         return UserDto.from(user);
     }
+
+    @Transactional
+    public void handler(AuthDefaultLocationCommand command) {
+        User user = userJpaRepository.findById(command.getUserDto().id()).orElseThrow(() -> {
+            throw new CustomAuthException("입력된 로그인 id로 회원을 찾을 수 없습니다.");
+        });
+        user.defaultLocation(command.getLatitude(), command.getLongitude());
+    }
 }

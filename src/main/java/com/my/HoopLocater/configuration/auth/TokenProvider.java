@@ -32,7 +32,7 @@ public class TokenProvider {
     public static final String ACCESS_TOKEN_HEADER = "accessToken";
     public static final String BEARER_PREFIX = "Bearer+";
 
-    public static final Long ACCESS_TOKEN_EXPIRE_TIME = (long) (1000 * 60 * 60 * 24 * 100); // 100일
+    public static final Long ACCESS_TOKEN_EXPIRE_TIME = (1000L * 60 * 60 * 24 * 100); // 100일
     private final Key key;
 
     public TokenProvider(@Value("${jwt.secret-key}") String secretKey) {

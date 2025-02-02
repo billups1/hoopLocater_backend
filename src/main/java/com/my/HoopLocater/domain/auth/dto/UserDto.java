@@ -10,6 +10,8 @@ public record UserDto(
         String loginId,
         String nickName,
         Role role,
+        Double latitude,
+        Double longitude,
         LocalDateTime withdrawalAt
 
 ) {
@@ -19,6 +21,8 @@ public record UserDto(
                 user.getLoginId(),
                 user.getNickName(),
                 user.getRole(),
+                user.getLatitude(),
+                user.getLongitude(),
                 user.getWithdrawalAt()
         );
     }
