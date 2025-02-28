@@ -8,6 +8,7 @@ import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.hoop.*;
 import com.my.HoopLocater.domain.hoop.dto.HoopDto;
 import com.my.HoopLocater.domain.hoopBackup.HoopBackup;
+import com.my.HoopLocater.domain.hoopBackup.UpdateMethod;
 import com.my.HoopLocater.infrastructure.persistence.hoop.HoopJpaQueryImplRepository;
 import com.my.HoopLocater.infrastructure.persistence.hoop.HoopJpaRepository;
 import com.my.HoopLocater.infrastructure.persistence.hoopBackup.HoopBackupJpaRepository;
@@ -47,6 +48,7 @@ public class HoopCommandHandler {
 
         // 농구장 히스토리 데이터 저장
         hoopBackupJpaRepository.save(HoopBackup.builder()
+                        .updateMethod(UpdateMethod.UPDATE)
                         .hoopId(hoop.getId())
                         .name(hoop.getName())
                         .latitude(hoop.getLatitude())
