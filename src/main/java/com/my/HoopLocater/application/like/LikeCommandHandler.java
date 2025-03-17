@@ -35,7 +35,7 @@ public class LikeCommandHandler {
     @Transactional
     public void handler(LikeDeleteCommand command) {
         Like like;
-        if (command.getUserDto() == null) {
+        if (command.getUserDto() != null) {
             like = likeJpaRepository.findByHoopAndUser(Hoop.builder().id(command.getHoopId()).build(), User.builder().id(command.getUserDto().id()).build());
         } else {
             like = likeJpaRepository.findByHoopAndAnonymousId(Hoop.builder().id(command.getHoopId()).build(), command.getAnonymousId());
