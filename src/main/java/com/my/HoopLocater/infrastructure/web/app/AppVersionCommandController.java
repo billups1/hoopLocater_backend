@@ -1,14 +1,15 @@
 package com.my.HoopLocater.infrastructure.web.app;
 
 import com.my.HoopLocater.application.app.AppVersionCommandHandler;
+import com.my.HoopLocater.configuration.argumentResolver.AuthUserDto;
+import com.my.HoopLocater.domain.auth.dto.UserDto;
+import com.my.HoopLocater.infrastructure.web.app.dto.AppStartCheckRequest;
 import com.my.HoopLocater.infrastructure.web.app.dto.AppUpdateRequiredCheckRequest;
+import com.my.HoopLocater.infrastructure.web.dto.AppStartCheckResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping
@@ -29,6 +30,19 @@ public class AppVersionCommandController {
     @PostMapping("/api/v1/appVersion/updateRequiredCheck")
     public Boolean updateRequiredCheck(@RequestBody @Valid AppUpdateRequiredCheckRequest request) {
         return commandHandler.handler(request.toCommand());
+    }
+
+    @Operation(
+            summary = "앱 시작 체크 API",
+            description = """
+                    <p>
+                        앱 업데이트 상태, 차단 아이피, 차단 user를 체크합니다.<br>
+                    </p>
+                    """
+    )
+    @PostMapping("/api/v1/appStartCheck")
+    public AppStartCheckResponseDto appStartCheck(@RequestBody @Valid AppStartCheckRequest request, @RequestHeader("anonymousId") String anonymousId, @AuthUserDto UserDto userDto) {
+        return commandHandler.handler(request.toCommand(anonymousId, userDto));
     }
 
 }
