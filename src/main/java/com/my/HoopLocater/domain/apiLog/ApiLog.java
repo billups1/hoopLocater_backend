@@ -45,9 +45,11 @@ public class ApiLog {
     private String errClass;
 
     @Column(name = "err_method")
+    @Lob
     private String errMethod;
 
     @Column(name = "err_message")
+    @Lob
     private String errMessage;
 
 }
