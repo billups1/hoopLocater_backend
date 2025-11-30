@@ -1,7 +1,7 @@
 package com.my.HoopLocater.infrastructure.web.storageFile;
 
-import com.my.HoopLocater.application.s3.AwsS3CommandHandler;
-import com.my.HoopLocater.application.s3.command.AwsS3ImageUploadCommand;
+import com.my.HoopLocater.application.ociObjectStorage.OciObjectStorageCommandHandler;
+import com.my.HoopLocater.application.ociObjectStorage.command.OciObjectStorageImageUploadCommand;
 import com.my.HoopLocater.application.storageFile.StorageFileCommandHandler;
 import com.my.HoopLocater.application.storageFile.command.StorageFileCreateCommand;
 import com.my.HoopLocater.application.storageFile.command.StorageFileDeleteCommand;
@@ -19,7 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class StorageImageFileCommandController {
 
-    private final AwsS3CommandHandler awsS3CommandHandler;
+//    private final AwsS3CommandHandler awsS3CommandHandler;
+    private final OciObjectStorageCommandHandler ociObjectStorageCommandHandler;
     private final StorageFileCommandHandler storageFileCommandHandler;
 
     @Operation(
@@ -35,7 +36,8 @@ public class StorageImageFileCommandController {
                                               @PathVariable(name = "hoopId") Long hoopId,
                                               @RequestHeader("anonymousId") String anonymousId,
                                               @AuthUserDto UserDto userDto) {
-        var s3FileDto = awsS3CommandHandler.handler(AwsS3ImageUploadCommand.of(userDto, anonymousId, pictureFile));
+//        var s3FileDto = awsS3CommandHandler.handler(AwsS3ImageUploadCommand.of(userDto, anonymousId, pictureFile));
+        var s3FileDto = ociObjectStorageCommandHandler.handler(OciObjectStorageImageUploadCommand.of(userDto, anonymousId, pictureFile));
         var storageImageFile = storageFileCommandHandler.handler(StorageFileCreateCommand.of(userDto, anonymousId, s3FileDto, Hoop.builder().id(hoopId).build()));
 
         return ImageFileResponseDto.from(storageImageFile, true);

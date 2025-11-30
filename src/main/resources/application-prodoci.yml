@@ -8,10 +8,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/hooplocater?serverTimeZone=Asia/Seoul
+    url: ${mysql.url}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 1234
+    username: admin
+    password: ${mysql.secret}
 
   jpa:
     open-in-view: true
@@ -43,13 +43,13 @@ spring:
         static: xxx
 
 jwt:
-  secret-key: temporarySecretKeytemporarySecretKeytemporarySecretKeytemporarySecretKeytemporarySecretKey
+  secret-key: ${jwt.secretkey}
 
 oci:
   config:
-    file-path: ${oci.config.file-path}
-    profile: ${oci.config.profile}
+    file-path: ${OCI_CONFIG_FILE_PATH}
+    profile: ${OCI_CONFIG_PROFILE}
   objectstorage:
-    namespace: ${oci.objectstorage.namespace}
-    bucket-name: ${oci.objectstorage.bucket-name}
-    region-id: ${oci.objectstorage.region-id}
+    namespace: ${OCI_OBJECTSTORAGE_NAMESPACE}
+    bucket-name: ${OCI_OBJECTSTORAGE_BUCKET_NAME}
+    region-id: ${OCI_OBJECTSTORAGE_REGION_ID}

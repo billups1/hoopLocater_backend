@@ -44,4 +44,16 @@ public record ImageFileResponseDto(
         );
     }
 
+    public static ImageFileResponseDto from(StorageImageFile storageImageFile, Boolean myImageFileState, String parUrl) {
+        return new ImageFileResponseDto(
+                storageImageFile.getId(),
+                storageImageFile.getUser() == null ? null : storageImageFile.getUser().getId(),
+                storageImageFile.getUser() == null ? storageImageFile.getAnonymousId() : storageImageFile.getUser().getNickName(),
+                storageImageFile.getHoop().getId(),
+                parUrl,
+                storageImageFile.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                myImageFileState
+        );
+    }
+
 }
