@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.security.Key;
 import java.util.Collection;
@@ -96,6 +97,10 @@ public class TokenProvider {
     }
 
     public boolean validateToken(String token) {
+        if (!StringUtils.hasText(token)) {
+            log.info("JWT 토큰이 없습니다.");
+            return false;
+        }
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
