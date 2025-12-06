@@ -62,8 +62,10 @@ jobs:
             # 2. 새 JAR 파일을 최종 경로로 이동 및 덮어쓰기
             mkdir -p $FINAL_APP_PATH # 디렉토리가 없으면 생성
             mv /tmp/$APP_JAR_NAME $FINAL_APP_PATH/$APP_JAR_NAME
+            chmod +r $FINAL_APP_PATH/$APP_JAR_NAME
+            chmod +x $FINAL_APP_PATH/start.sh
             echo "New JAR moved to $FINAL_APP_PATH"
 
-            # 3. /home/app/start.sh 스크립트 실행 (사용자 요청)
+            # 3. /home/app/start.sh 스크립트 실행
             nohup $FINAL_APP_PATH/start.sh > $FINAL_APP_PATH/app.log 2>&1 &
             echo "Application restarted via $FINAL_APP_PATH/start.sh"
