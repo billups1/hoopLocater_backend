@@ -36,7 +36,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: 'build/libs/HoopLocater-0.0.1-SNAPSHOT.jar'.
+          source: 'build/libs/HoopLocater-0.0.1-SNAPSHOT.jar'
           target: '/tmp' # 임시 디렉토리
 
       # 5. OCI 인스턴스에 접속하여 기존 프로세스 종료 및 스크립트 실행
@@ -64,5 +64,5 @@ jobs:
             echo "New JAR moved to $FINAL_APP_PATH"
 
             # 3. /home/app/start.sh 스크립트 실행 (사용자 요청)
-            nohup /home/opc/app/start.sh > /home/opc/app/app.log 2>&1 &
-            echo "Application restarted via /home/app/start.sh"
+            nohup $FINAL_APP_PATH/start.sh > $FINAL_APP_PATH/app.log 2>&1 &
+            echo "Application restarted via $FINAL_APP_PATH/start.sh"
