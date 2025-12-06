@@ -1,4 +1,5 @@
 # .github/workflows/deploy.yml
+# 배포 1
 
 name: Java CI/CD - OCI SSH 배포
 
