@@ -1,0 +1,19 @@
+name: Server Warmup
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch: # 수동 실행 버튼 활성화
+
+jobs:
+  warmup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Warmup Request
+        env:
+          TARGET_URL: ${{ secrets.TARGET_DOMAIN }}
+        run: |
+          curl -v \
+            -H "User-Agent: PostmanRuntime" \
+            -H "anonymousId: warmUp" \
+            "$TARGET_URL/api/v1/hoop/all"
