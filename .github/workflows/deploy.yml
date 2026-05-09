@@ -4,9 +4,7 @@
 name: Java CI/CD - OCI SSH 배포
 
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
 
 jobs:
   deploy:
