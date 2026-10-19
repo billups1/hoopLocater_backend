@@ -11,6 +11,7 @@ public class HoopBackupCreateCommand {
 
     private Long hoopId;
     private String name;
+    private LeagueType type;
     private Double latitude;
     private Double longitude;
     private Integer hoopCount;
@@ -24,6 +25,7 @@ public class HoopBackupCreateCommand {
 
     public HoopBackupCreateCommand(Long hoopId,
                                    String name,
+                                   LeagueType type,
                                    Double latitude,
                                    Double longitude,
                                    Integer hoopCount,
@@ -36,6 +38,7 @@ public class HoopBackupCreateCommand {
                                    UpdateMethod updateMethod) {
         this.hoopId = hoopId;
         this.name = name;
+        this.type = type;
         this.latitude = latitude;
         this.longitude = longitude;
         this.hoopCount = hoopCount;
@@ -50,6 +53,7 @@ public class HoopBackupCreateCommand {
 
     public static HoopBackupCreateCommand of(Long hoopId,
                                              String name,
+                                             LeagueType type,
                                              Double latitude,
                                              Double longitude,
                                              Integer hoopCount,
@@ -60,11 +64,11 @@ public class HoopBackupCreateCommand {
                                              User user,
                                              String anonymousId,
                                              UpdateMethod updateMethod) {
-        return new HoopBackupCreateCommand(hoopId, name, latitude, longitude, hoopCount, floorType, light, freeState, standardState, user, anonymousId, updateMethod);
+        return new HoopBackupCreateCommand(hoopId, name, type, latitude, longitude, hoopCount, floorType, light, freeState, standardState, user, anonymousId, updateMethod);
     }
 
     public static HoopBackupCreateCommand of(Hoop hoop, UpdateMethod updateMethod) {
-        return new HoopBackupCreateCommand(hoop.getId(), hoop.getName(), hoop.getLatitude(), hoop.getLongitude(), hoop.getHoopCount(), hoop.getFloorType(), hoop.getLight(), hoop.getFreeState(), hoop.getStandardState(),
+        return new HoopBackupCreateCommand(hoop.getId(), hoop.getName(), hoop.getType(), hoop.getLatitude(), hoop.getLongitude(), hoop.getHoopCount(), hoop.getFloorType(), hoop.getLight(), hoop.getFreeState(), hoop.getStandardState(),
                 hoop.getUser(), hoop.getAnonymousId(), updateMethod);
     }
 
@@ -72,6 +76,7 @@ public class HoopBackupCreateCommand {
         return HoopBackup.builder()
                 .hoopId(hoopId)
                 .name(name)
+                .type(type != null ? type : LeagueType.HOOP)
                 .latitude(latitude)
                 .longitude(longitude)
                 .hoopCount(hoopCount)

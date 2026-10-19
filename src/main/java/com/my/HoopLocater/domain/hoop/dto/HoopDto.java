@@ -6,6 +6,7 @@ import com.querydsl.core.annotations.QueryProjection;
 public record HoopDto(
         Long id,
         String name,
+        LeagueType type,
         Double latitude,
         Double longitude,
         Integer hoopCount,
@@ -23,6 +24,7 @@ public record HoopDto(
         return new HoopDto(
                 hoop.getId(),
                 hoop.getName(),
+                hoop.getType() != null ? hoop.getType() : LeagueType.HOOP,
                 hoop.getLatitude(),
                 hoop.getLongitude(),
                 hoop.getHoopCount(),
@@ -42,6 +44,7 @@ public record HoopDto(
         this(
                 hoop.getId(),
                 hoop.getName(),
+                hoop.getType() != null ? hoop.getType() : LeagueType.HOOP,
                 hoop.getLatitude(),
                 hoop.getLongitude(),
                 hoop.getHoopCount(),

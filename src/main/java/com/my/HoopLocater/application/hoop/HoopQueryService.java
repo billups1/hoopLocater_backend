@@ -3,9 +3,13 @@ package com.my.HoopLocater.application.hoop;
 import com.my.HoopLocater.common.exception.CustomBusinessException;
 import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.hoop.Hoop;
+import com.my.HoopLocater.domain.hoop.LeagueType;
 import com.my.HoopLocater.domain.hoop.dto.HoopDto;
+import com.my.HoopLocater.domain.hoopDetail.dto.HoopDetailDto;
+import com.my.HoopLocater.domain.hoopDetail.dto.ProHoopDto;
 import com.my.HoopLocater.infrastructure.persistence.hoop.HoopJpaQueryImplRepository;
 import com.my.HoopLocater.infrastructure.persistence.hoop.HoopJpaQueryRepository;
+import com.my.HoopLocater.infrastructure.persistence.hoopDetail.HoopDetailJpaRepository;
 import com.my.HoopLocater.infrastructure.persistence.storageFile.StorageFileJpaRepository;
 import com.my.HoopLocater.infrastructure.web.storageFile.dto.ImageFileResponseDto;
 import com.oracle.bmc.objectstorage.ObjectStorageClient;
@@ -28,8 +32,12 @@ import java.util.List;
 public class HoopQueryService {
     private final HoopJpaQueryRepository hoopJpaQueryRepository;
     private final HoopJpaQueryImplRepository hoopJpaQueryImplRepository;
+    private final HoopDetailJpaRepository hoopDetailJpaRepository;
     private final StorageFileJpaRepository storageFileJpaRepository;
     private final ObjectStorageClient objectStorageClient;
+
+    // 구단 로고 OCI 저장 경로 (확장자 png 고정)
+    private static final String TEAM_LOGO_PATH_FORMAT = "team/%s.png";
 
     @Value("${oci.objectstorage.namespace}")
     private String namespaceName;
@@ -47,6 +55,30 @@ public class HoopQueryService {
 
     public HoopDto getHoop(Long hoopId, String anonymousId, UserDto userDto) {
         return hoopJpaQueryImplRepository.getHoop(hoopId, anonymousId, userDto);
+    }
+
+    // 프로구단 홈구장 상세정보 조회
+    public HoopDetailDto getHoopDetail(Long hoopId) {
+        return hoopDetailJpaRepository.findByHoopId(hoopId)
+                .map(HoopDetailDto::from)
+                .map(dto -> dto.withLogoUrl(createTeamLogoParUrl(dto.teamCode())))
+                .orElseThrow(() -> new CustomBusinessException("해당 농구장의 상세정보를 찾을 수 없습니다."));
+    }
+
+    // 프로구단 홈구장(KBL/WKBL) 목록 조회 (type이 null이면 전체)
+    @Transactional(readOnly = true)
+    public List<ProHoopDto> getProHoopList(LeagueType type) {
+        return hoopJpaQueryRepository.getProHoopList(type).stream()
+                .map(dto -> dto.withLogoUrl(createTeamLogoParUrl(dto.teamCode())))
+                .toList();
+    }
+
+    // 구단 로고 PAR URL 생성 (OCI 저장 경로: team/{teamCode}.png)
+    public String createTeamLogoParUrl(String teamCode) {
+        if (teamCode == null || teamCode.isBlank()) {
+            return null;
+        }
+        return createParUrl(TEAM_LOGO_PATH_FORMAT.formatted(teamCode));
     }
 
     public List<ImageFileResponseDto> getHoopPictures(Long hoopId, UserDto userDto) {

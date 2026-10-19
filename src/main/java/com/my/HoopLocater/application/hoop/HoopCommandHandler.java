@@ -51,6 +51,7 @@ public class HoopCommandHandler {
                         .updateMethod(UpdateMethod.UPDATE)
                         .hoopId(hoop.getId())
                         .name(hoop.getName())
+                        .type(hoop.getType())
                         .latitude(hoop.getLatitude())
                         .longitude(hoop.getLongitude())
                         .hoopCount(hoop.getHoopCount())

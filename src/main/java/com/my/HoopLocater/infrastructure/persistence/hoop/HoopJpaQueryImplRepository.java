@@ -2,9 +2,13 @@ package com.my.HoopLocater.infrastructure.persistence.hoop;
 
 import com.my.HoopLocater.domain.auth.dto.UserDto;
 import com.my.HoopLocater.domain.hoop.Hoop;
+import com.my.HoopLocater.domain.hoop.LeagueType;
 import com.my.HoopLocater.domain.hoop.QHoop;
 import com.my.HoopLocater.domain.hoop.dto.HoopDto;
 import com.my.HoopLocater.domain.hoop.dto.QHoopDto;
+import com.my.HoopLocater.domain.hoopDetail.QHoopDetail;
+import com.my.HoopLocater.domain.hoopDetail.dto.ProHoopDto;
+import com.my.HoopLocater.domain.hoopDetail.dto.QProHoopDto;
 import com.my.HoopLocater.domain.like.Like;
 import com.my.HoopLocater.domain.like.QLike;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -27,6 +31,7 @@ public class HoopJpaQueryImplRepository extends QuerydslRepositorySupport implem
                         new QHoopDto(hoop)
                 )
                 .from(hoop)
+                .where(hoop.type.eq(LeagueType.HOOP))
                 .fetch();
     }
 
@@ -64,5 +69,20 @@ public class HoopJpaQueryImplRepository extends QuerydslRepositorySupport implem
         }
 
         return HoopDto.from(hoopEntity, false);
+    }
+
+    @Override
+    public List<ProHoopDto> getProHoopList(LeagueType type) {
+        QHoop hoop = QHoop.hoop;
+        QHoopDetail hoopDetail = QHoopDetail.hoopDetail;
+
+        return getQuerydsl().createQuery().select(
+                        new QProHoopDto(hoop, hoopDetail)
+                )
+                .from(hoop)
+                .innerJoin(hoopDetail).on(hoopDetail.hoopId.eq(hoop.id))
+                .where(hoop.type.in(LeagueType.KBL, LeagueType.WKBL)
+                        .and(type != null ? hoop.type.eq(type) : null))
+                .fetch();
     }
 }

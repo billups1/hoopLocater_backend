@@ -6,6 +6,7 @@ import com.my.HoopLocater.domain.auth.User;
 import com.my.HoopLocater.domain.storageFile.StorageImageFile;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,11 @@ public class Hoop extends BaseTimeEntity { // 농구장
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "type", nullable = false)
+    @ColumnDefault("'HOOP'")
+    @Enumerated(EnumType.STRING)
+    private LeagueType type = LeagueType.HOOP; // 구분(일반 농구장 / KBL / WKBL)
 
     @Column(name = "latitude", nullable = false)
     private Double latitude; // 위도
@@ -66,9 +72,10 @@ public class Hoop extends BaseTimeEntity { // 농구장
     private Integer likeCount;
 
     @Builder
-    public Hoop(Long id, String name, Double latitude, Double longitude, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, List<StorageImageFile> storageImageFiles, User user, String anonymousId, int commentCount, int likeCount) {
+    public Hoop(Long id, String name, LeagueType type, Double latitude, Double longitude, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, List<StorageImageFile> storageImageFiles, User user, String anonymousId, int commentCount, int likeCount) {
         this.id = id;
         this.name = name;
+        this.type = type != null ? type : LeagueType.HOOP;
         this.latitude = latitude;
         this.longitude = longitude;
         this.hoopCount = hoopCount;

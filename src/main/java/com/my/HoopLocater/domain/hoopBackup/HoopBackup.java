@@ -4,10 +4,12 @@ import com.my.HoopLocater.common.BaseTimeEntity;
 import com.my.HoopLocater.domain.auth.User;
 import com.my.HoopLocater.domain.hoop.FloorType;
 import com.my.HoopLocater.domain.hoop.FreeState;
+import com.my.HoopLocater.domain.hoop.LeagueType;
 import com.my.HoopLocater.domain.hoop.Light;
 import com.my.HoopLocater.domain.hoop.StandardState;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,6 +28,11 @@ public class HoopBackup extends BaseTimeEntity { // 농구장 백업
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "type", nullable = false)
+    @ColumnDefault("'HOOP'")
+    @Enumerated(EnumType.STRING)
+    private LeagueType type; // 구분(일반 농구장 / KBL / WKBL)
 
     @Column(name = "latitude", nullable = false)
     private Double latitude; // 위도
@@ -63,9 +70,10 @@ public class HoopBackup extends BaseTimeEntity { // 농구장 백업
     @Enumerated(EnumType.STRING)
     private UpdateMethod updateMethod; // 업데이트 방법
 
-    public void updateContent(Long hoopId, String name, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, User user, String anonymousId) {
+    public void updateContent(Long hoopId, String name, LeagueType type, Integer hoopCount, FloorType floorType, Light light, FreeState freeState, StandardState standardState, User user, String anonymousId) {
         this.hoopId = hoopId;
         this.name = name;
+        this.type = type;
         this.hoopCount = hoopCount;
         this.floorType = floorType;
         this.light = light;
